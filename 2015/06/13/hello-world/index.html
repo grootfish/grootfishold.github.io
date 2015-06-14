@@ -18,7 +18,7 @@
     <meta property="og:image" content="undefined"/>
   
 
-  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link href="/favicon.png" rel="icon">
   <link rel="alternate" href="/atom.xml" title="Hexo-grootfish" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -89,30 +89,29 @@
 
 <nav id="pagination" >
     
-    <a href="/2015/06/14/my-new-post/" class="alignleft prev" >上一页</a>
+    <a href="/2015/06/14/markdown/" class="alignleft prev" >上一页</a>
     
     
     <div class="clearfix"></div>
 </nav>
 
 <section id="comment">
-  <h1 class="title">留言</h1>
-
-  
-      <div id="fb-root"></div>
-<script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div class="fb-comments" data-href="http://yoursite.com/2015/06/13/hello-world/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
+  <!-- 多说评论框 start -->
+  <div class="ds-thread"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"grootfish"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
 </section>
 
 </div></div>
@@ -131,7 +130,9 @@
   <h3 class="title">标签</h3>
   <ul class="entry">
   
-    <li><a href="/tags/博客，文章/">博客，文章</a><small>1</small></li>
+    <li><a href="/tags/博客，文章/">博客，文章</a><small>0</small></li>
+  
+    <li><a href="/tags/学习-Study/">学习 | Study</a><small>1</small></li>
   
   </ul>
 </div>
@@ -141,6 +142,7 @@
 <h3 class="title">友情链接</h3>
 <ul class="entry">
 <li><a href="http://grootfish.github.io/" title="grootfish's Blog">Grootfish</a></li>
+	<li><a href="https://coderq.com/" title="码农圈" target="_blank">码农圈</a></li>
 </ul>
 </div>
 </aside>
