@@ -92,7 +92,7 @@
 <li><p>不可见原子<br>自然是不可见的字符啦</p>
 <ul>
 <li>换行符 —————-<code>\n</code></li>
-<li>回车  ——————<code>\r</code></li>
+<li>回车  —————— <code>\r</code></li>
 <li>制表符 —————-<code>\t</code></li>
 <li>空格</li>
 <li>其他不可见字符         </li>
@@ -107,11 +107,11 @@
 </ul>
 <h4 id="原子的集合">原子的集合</h4><ul>
 <li><code>.</code>  匹配除换行外任意字符 ———————————-<code>[^\n]</code></li>
-<li><code>\d</code> ————————————————————-<code>[0-9]</code></li>
-<li><code>\D</code> ————————————————————<code>[^0-9]</code></li>
-<li><code>\s</code> 匹配不可见原子 ———————————<code>[\f\n\r\t\v]</code></li>
+<li><code>\d</code> —————————————————————<code>[0-9]</code></li>
+<li><code>\D</code> ————————————————————-<code>[^0-9]</code></li>
+<li><code>\s</code> 匹配不可见原子 ——————————<code>[\f\n\r\t\v]</code></li>
 <li><code>\S</code> —————————————————<code>[^\f\n\r\t\v]</code></li>
-<li><code>\w</code> 匹配任意数字字母或下划线————————<code>[0-9a-zA-z]</code></li>
+<li><code>\w</code> 匹配任意数字字母或下划线——————<code>[0-9a-zA-z]</code></li>
 <li><code>\W</code> —————————————————-<code>[^0-9a-zA-Z]</code></li>
 <li><code>\b</code> 零宽单词边界</li>
 <li><code>\B</code> 非零宽单词边界</li>
@@ -152,39 +152,62 @@
 </li>
 <li><p>全局匹配 ———————-<code>/abc/g</code></p>
 </li>
-<li>忽略大小写匹配 —————<code>/AoMy/i</code></li>
+<li>忽略大小写匹配 ————-<code>/AoMy/i</code></li>
 <li>跨行匹配 ———————-<code>/.../m</code></li>
 </ul>
 <h3 id="6-常用正则表达式">6.常用正则表达式</h3><ul>
-<li>非空 ——————————————————————<code>/.+/</code></li>
-<li>保留两位小数 ——————————————-<code>/\d+\.\d{2}$/</code></li>
-<li>手机号 ————————————————<code>/1[34578]\d{9}/</code></li>
+<li>非空 ———————————————————————<code>/.+/</code></li>
+<li>保留两位小数——————————————-<code>/\d+\.\d{2}$/</code></li>
+<li>手机号 ————————————————-<code>/1[34578]\d{9}/</code></li>
 <li>email地址 ————————-<code>/^\w+(\.\w+)*@\w+(\.\w+)+$/</code></li>
 <li>url地址 ———————<code>/^(https?://)?(\w\.)+[a-zA-z]+$/</code></li>
 <li>不一一列举，推荐网站可以去查询一些常用的正则表达式<a href="http://www.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="external">W3Cfuns</a></li>
 </ul>
 <h3 id="7-_javascript中的正则表达式">7. javascript中的正则表达式</h3><p>因为本人是前端工程师，所以比较关注js中正则表达式的运用，在js语法中正则表达式是一种特殊的对象类型，可以直接用<code>new RegExp()</code>来创建RegExp对象。</p>
 <h4 id="RegExp对象">RegExp对象</h4><ul>
-<li>对象属性<ul>
-<li>global属性———————-<code>/abc/g.global</code>返回<code>true</code></li>
-<li>ignoreCase属性 —————<code>/abc/i.ignoreCase</code></li>
-<li>multiline属性 —————-<code>/abc/m.multiline</code></li>
-<li>source属性 ———————<code>/abc/.source</code>返回<code>&#39;abc&#39;</code>即匹配项 </li>
+<li><p>对象属性</p>
+<ul>
+<li><p>global属性    </p>
+<pre><code><span class="regexp">/abc/g</span>.<span class="built_in">global</span>返回<span class="literal">true</span>
+</code></pre></li>
+<li><p>ignoreCase属性 </p>
+<pre><code>/abc/<span class="tag">i</span>.ignoreCase
+</code></pre></li>
+<li><p>multiline属性 </p>
+<pre><code><span class="regexp">/abc/m</span>.multiline
+</code></pre></li>
+<li><p>source属性 </p>
+<pre><code><span class="regexp">/abc/</span>.<span class="keyword">source</span>返回<span class="string">'abc'</span>即匹配项 
+</code></pre></li>
 </ul>
 </li>
-<li>对象方法<ul>
-<li>test方法 ————————<code>/\d+/.test(&#39;123&#39;)</code>返回<code>true</code></li>
-<li>exec方法 ————————<code>/\d+/.test(&#39;12afs34&#39;)</code>返回<code>[12,34]</code></li>
-<li>toString方法</li>
+<li><p>对象方法</p>
+<ul>
+<li><p>test方法 </p>
+<pre><code>/\d+/.<span class="function"><span class="title">test</span><span class="params">(<span class="string">'123'</span>)</span></span>返回true
+</code></pre></li>
+<li><p>exec方法 </p>
+<pre><code>/\d+/.<span class="function"><span class="title">test</span><span class="params">(<span class="string">'12afs34'</span>)</span></span>返回[<span class="number">12</span>,<span class="number">34</span>]
+</code></pre></li>
+<li><p>toString方法</p>
+</li>
 <li>compile方法 可以修改正则表达式对象的属性和匹配值</li>
 </ul>
 </li>
 </ul>
 <h4 id="字符串与RegExp相关方法">字符串与RegExp相关方法</h4><ul>
-<li>search方法 <code>&#39;abc123d&#39;.search(/\d+/)</code> 返回<code>3</code>即第一次匹配到的字符串下标</li>
-<li>replace方法 <code>&#39;aabbbbcc&#39;.replace(/b+?/,&#39;1&#39;)</code> 返回<code>aa1bbbcc</code></li>
-<li>match方法 <code>&#39;AB12casd9&#39;.match(/\d+/)</code> 返回<code>[12,9]</code></li>
-<li>split方法 <code>&#39;ab12sdfs1ds&#39;.split(/\d+/)</code> 返回<code>[ab,sdfs,ds]</code></li>
+<li><p>search方法 </p>
+<pre><code><span class="string">'abc123d'</span>.<span class="function"><span class="title">search</span><span class="params">(/\d+/)</span></span> 返回<span class="number">3</span>即第一次匹配到的字符串下标
+</code></pre></li>
+<li><p>replace方法 </p>
+<pre><code><span class="string">'aabbbbcc'</span>.<span class="function"><span class="title">replace</span><span class="params">(/b+?/,<span class="string">'1'</span>)</span></span> 返回aa1bbbcc
+</code></pre></li>
+<li><p>match方法 </p>
+<pre><code><span class="string">'AB12casd9'</span>.<span class="function"><span class="title">match</span><span class="params">(/\d+/)</span></span> 返回[<span class="number">12</span>,<span class="number">9</span>]
+</code></pre></li>
+<li><p>split方法 </p>
+<pre><code><span class="string">'ab12sdfs1ds'</span>.<span class="function"><span class="title">split</span><span class="params">(/\d+/)</span></span> 返回[ab,sdfs,ds]
+</code></pre></li>
 </ul>
 <h3 id="8-_正则表达式工具">8. 正则表达式工具</h3><p>最后在介绍一些正则表达式工具</p>
 <ul>
