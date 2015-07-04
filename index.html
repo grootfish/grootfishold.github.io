@@ -148,7 +148,7 @@
 <p>正则表达式的默认匹配模式，匹配尽可能多的原子例如<code>z{10}</code>它就会匹配到全部的10个<code>z</code></p>
 </li>
 <li><p>懒惰模式  <em>(不要和我比，我懒得和你比)</em></p>
-<p>匹配尽可能少的原子例如<code>z*?</code>只能匹配到1个<code>z</code></p>
+<p>匹配尽可能少的原子例如<code>z+?</code>只能匹配到1个<code>z</code></p>
 </li>
 <li><p>全局匹配 ———————-<code>/abc/g</code></p>
 </li>
@@ -160,7 +160,7 @@
 <li>保留两位小数——————————————-<code>/\d+\.\d{2}$/</code></li>
 <li>手机号 ————————————————-<code>/1[34578]\d{9}/</code></li>
 <li>email地址 ————————-<code>/^\w+(\.\w+)*@\w+(\.\w+)+$/</code></li>
-<li>url地址 ———————<code>/^(https?://)?(\w\.)+[a-zA-z]+$/</code></li>
+<li>url地址 ———————<code>/^(https?://)?(\w+\.)+[a-zA-z]+$/</code></li>
 <li>不一一列举，推荐网站可以去查询一些常用的正则表达式<a href="http://www.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="external">W3Cfuns</a></li>
 </ul>
 <h3 id="7-_javascript中的正则表达式">7. javascript中的正则表达式</h3><p>因为本人是前端工程师，所以比较关注js中正则表达式的运用，在js语法中正则表达式是一种特殊的对象类型，可以直接用<code>new RegExp()</code>来创建RegExp对象。</p>
@@ -187,7 +187,7 @@
 <pre><code>/\d+/.<span class="function"><span class="title">test</span><span class="params">(<span class="string">'123'</span>)</span></span>返回true
 </code></pre></li>
 <li><p>exec方法 </p>
-<pre><code>/\d+/.<span class="function"><span class="title">test</span><span class="params">(<span class="string">'12afs34'</span>)</span></span>返回[<span class="number">12</span>,<span class="number">34</span>]
+<pre><code>/\d+/.<span class="function"><span class="title">exec</span><span class="params">(<span class="string">'12afs34'</span>)</span></span>返回[<span class="number">12</span>,<span class="number">34</span>]
 </code></pre></li>
 <li><p>toString方法</p>
 </li>
