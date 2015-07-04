@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>正则表达式 | Hexo-grootfish</title>
+  <meta name="author" content="grootfish">
+  
+  <meta name="description" content="前端 html css javascript">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="正则表达式"/>
+  <meta property="og:site_name" content="Hexo-grootfish"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo-grootfish" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+<a href="https://github.com/grootfish/grootfish.github.io"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Hexo-grootfish</a></h1>
+  <h2><a href="/">1000 words a  Day</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-07-04T06:09:24.000Z"><a href="/2015/07/04/RegExp/">2015-07-04</a></time>
+      
+      
+  
+    <h1 class="title">正则表达式</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
+<ul>
+<li>界定符</li>
+<li>原子<ul>
+<li>元字符</li>
+<li>原子的集合</li>
+</ul>
+</li>
+<li>量词</li>
+<li>边界控制</li>
+<li>模式单元</li>
+<li>修正模式</li>
+</ul>
+<h3 id="1-_界定符">1. 界定符</h3><p>界定符最简单啦，表示一个正则表达式的开始和结束，例如<code>/[0-9]/</code>,<code>/\d/</code>等等</p>
+<h3 id="2-_原子">2. 原子</h3><p>原子是正则表达式的基本组成元素，可以分为两类：</p>
+<ul>
+<li><p>可见原子<br> Unicode编码表中用键盘输出后可见的字符。以下都是可见原子</p>
+<ul>
+<li>标点 某些特殊标点需要转义比如<code>\.</code>,<code>\*</code>等等</li>
+<li>英文字母数字</li>
+<li>汉字、日文等等语言文字(<strong>一般用unicode编码匹配避免编码错误</strong>)</li>
+<li>各种奇奇怪怪的符号（原谅我的编辑器打不出来）</li>
+<li>其他可见的字符</li>
+</ul>
+</li>
+<li><p>不可见原子<br>自然是不可见的字符啦</p>
+<ul>
+<li>换行符 <code>\n</code></li>
+<li>回车  <code>\r</code></li>
+<li>制表符 <code>\t</code></li>
+<li>空格</li>
+<li>其他不可见字符         </li>
+</ul>
+</li>
+</ul>
+<h4 id="元字符">元字符</h4><p>元字符是原子的筛选方式     </p>
+<ul>
+<li><code>|</code>  匹配两个或多个分支选项</li>
+<li><code>[]</code>匹配方括号里<strong>任意一个</strong>原子匹配,支持区间匹配<code>[a-z]</code>等</li>
+<li><code>[^]</code> 方括号里的原子都不匹配（<strong><code>^</code>必须跟在左括号后面</strong>） </li>
+</ul>
+<h4 id="原子的集合">原子的集合</h4><ul>
+<li><code>.</code> 匹配除换行外任意字符 <code>[^\n]</code></li>
+<li><code>\d</code> <code>[0-9]</code></li>
+<li><code>\D</code> <code>[^0-9]</code></li>
+<li><code>\s</code> 匹配不可见原子 <code>[\f\n\r\t\v]</code></li>
+<li><code>\S</code> <code>[^\f\n\r\t\v]</code></li>
+<li><code>\w</code> 匹配任意数字字母或下划线 <code>[0-9a-zA-z]</code></li>
+<li><code>\W</code> <code>[^0-9a-zA-Z]</code></li>
+<li><code>\b</code> 零宽单词边界</li>
+<li><code>\B</code> 非零宽单词边界</li>
+</ul>
+<h3 id="3-_量词">3. 量词</h3><ul>
+<li><code>{n}</code> 表示量词前面的原子恰好出现n次</li>
+<li><code>{n,}</code>表示量词前面的原子至少出现n次</li>
+<li><code>{n,m}</code>表示量词前面的原子至少出现n次，至多出现m次</li>
+<li><code>*</code> 原子出现0到任意多次 <code>{0,}</code></li>
+<li><code>+</code> 原子出现1到任意多次 <code>{1,}</code></li>
+<li><code>?</code> 原子出现0到1次 <code>{0,1}</code></li>
+</ul>
+<h3 id="4-_边界控制与模式单元">4. 边界控制与模式单元</h3><ul>
+<li>边界控制<ul>
+<li><code>^</code>匹配字符串开始位置</li>
+<li><code>$</code>匹配字符串结束位置</li>
+</ul>
+</li>
+<li><p>模式单元</p>
+<ul>
+<li><code>(x)</code>匹配其中的整体为一个原子，即括号里面内容当作一个原子</li>
+<li><p><code>(x)\n</code> 括号和<code>\n</code>(n代表1开始的自然数)联合使用<code>\n</code>可以表示第n个括号内容的引用例如:</p>
+<pre><code>/(abc)\<span class="number">1</span>/.<span class="function"><span class="title">test</span><span class="params">(<span class="string">"abcabc"</span>)</span></span>
+</code></pre></li>
+<li><p><code>(?:x)</code> 表示括号里的内容仅作为分组，不引用例如：</p>
+<pre><code>/<span class="params">(?:abc)</span><span class="params">(xyz)</span>\<span class="number">1</span>/.test<span class="params">(<span class="string">"abcxyzxyz"</span>)</span>
+</code></pre><p> <code>\1</code>引用的是<code>(xyz)</code>,而不引用<code>(abc)</code>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-_修正模式">5. 修正模式</h3><ul>
+<li><p>贪婪模式 <em>（我还要）</em></p>
+<p>正则表达式的默认匹配模式，匹配尽可能多的原子例如<code>z{10}</code>它就会匹配到全部的10个<code>z</code></p>
+</li>
+<li><p>懒惰模式  <em>(不要和我比，我懒得和你比)</em></p>
+<p>匹配尽可能少的原子例如<code>z*?</code>只能匹配到1个<code>z</code></p>
+</li>
+<li><p>全局匹配 <code>/abc/g</code></p>
+</li>
+<li>忽略大小写匹配 <code>/AoMy/i</code></li>
+<li>跨行匹配 <code>/.../m</code></li>
+</ul>
+<h3 id="6-常用正则表达式">6.常用正则表达式</h3><ul>
+<li>非空 <code>/.+/</code></li>
+<li>保留两位小数 <code>/\d+\.\d{2}$/</code></li>
+<li>手机号 <code>/1[34578]\d{9}/</code></li>
+<li>email地址 <code>/^\w+(\.\w+)*@\w+(\.\w+)+$/</code></li>
+<li>url地址 <code>/^(https?://)?(\w\.)+[a-zA-z]+$/</code></li>
+<li>不一一列举，推荐网站可以去查询一些常用的正则表达式<a href="http://www.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="external">W3Cfuns</a></li>
+</ul>
+<h3 id="7-_javascript中的正则表达式">7. javascript中的正则表达式</h3><p>因为本人是前端工程师，所以比较关注js中正则表达式的运用，在js语法中正则表达式是一种特殊的对象类型，可以直接用<code>new RegExp()</code>来创建RegExp对象。</p>
+<h4 id="RegExp对象">RegExp对象</h4><ul>
+<li>对象属性<ul>
+<li>global属性<code>/abc/g.global</code>返回<code>true</code></li>
+<li>ignoreCase属性 <code>/abc/i.ignoreCase</code></li>
+<li>multiline属性 <code>/abc/m.multiline</code></li>
+<li>source属性 <code>/abc/.source</code>返回<code>&#39;abc&#39;</code>即匹配项 </li>
+</ul>
+</li>
+<li>对象方法<ul>
+<li>test方法 <code>/\d+/.test(&#39;123&#39;)</code>返回<code>true</code></li>
+<li>exec方法 <code>/\d+/.test(&#39;12afs34&#39;)</code>返回<code>[12,34]</code></li>
+<li>toString方法</li>
+<li>compile方法 可以修改正则表达式对象的属性和匹配值</li>
+</ul>
+</li>
+</ul>
+<h4 id="字符串与RegExp相关方法">字符串与RegExp相关方法</h4><ul>
+<li>search方法 <code>&#39;abc123d&#39;.search(/\d+/)</code> 返回<code>3</code>即第一次匹配到的字符串下标</li>
+<li>replace方法 <code>&#39;aabbbbcc&#39;.replace(/b+?/,&#39;1&#39;)</code> 返回<code>aa1bbbcc</code></li>
+<li>match方法 <code>&#39;AB12casd9&#39;.match(/\d+/)</code> 返回<code>[12,9]</code></li>
+<li>split方法 <code>&#39;ab12sdfs1ds&#39;.split(/\d+/)</code> 返回<code>[ab,sdfs,ds]</code></li>
+</ul>
+<h3 id="8-_正则表达式工具">8. 正则表达式工具</h3><p>最后在介绍一些正则表达式工具</p>
+<ul>
+<li><a href="http://www.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="external">W3Cfuns</a></li>
+<li><a href="http://regexpal.com/" target="_blank" rel="external">regexpal</a></li>
+<li><a href="http://regexper.com/" target="_blank" rel="external">regexper</a></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/学习-Study/">学习 | Study</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["mshare","qzone","tsina","weixin","renren","tqq","tqf","tieba","douban","bdhome","sqq","ibaidu","youdao","qingbiji","mail","wealink","ty","fbook","twi","linkedin","copy","print"],"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<nav id="pagination" >
+    
+    
+    <a href="/2015/06/27/Mac/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+
+<section id="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"grootfish"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/学习-Study/">学习 | Study</a><small>3</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://grootfish.github.io/" title="grootfish's Blog">Grootfish</a></li>
+	<li><a href="https://coderq.com/" title="码农圈" target="_blank">码农圈</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 grootfish
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
