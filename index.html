@@ -91,9 +91,9 @@
 </li>
 <li><p>不可见原子<br>自然是不可见的字符啦</p>
 <ul>
-<li>换行符—————-<code>\n</code></li>
-<li>回车 ——————-<code>\r</code></li>
-<li>制表符—————-<code>\t</code></li>
+<li>换行符 —————-<code>\n</code></li>
+<li>回车  ——————<code>\r</code></li>
+<li>制表符 —————-<code>\t</code></li>
 <li>空格</li>
 <li>其他不可见字符         </li>
 </ul>
@@ -106,13 +106,13 @@
 <li><code>[^]</code> 方括号里的原子都不匹配（<strong><code>^</code>必须跟在左括号后面</strong>） </li>
 </ul>
 <h4 id="原子的集合">原子的集合</h4><ul>
-<li><code>.</code> 匹配除换行外任意字符————<code>[^\n]</code></li>
-<li><code>\d</code> ————————————————<code>[0-9]</code></li>
-<li><code>\D</code> ————————————————<code>[^0-9]</code></li>
-<li><code>\s</code> 匹配不可见原子 ——————-<code>[\f\n\r\t\v]</code></li>
-<li><code>\S</code> ————————————————<code>[^\f\n\r\t\v]</code></li>
-<li><code>\w</code> 匹配任意数字字母或下划线-<code>[0-9a-zA-z]</code></li>
-<li><code>\W</code> ————————————————<code>[^0-9a-zA-Z]</code></li>
+<li><code>.</code>  匹配除换行外任意字符 ———————————-<code>[^\n]</code></li>
+<li><code>\d</code> ————————————————————-<code>[0-9]</code></li>
+<li><code>\D</code> ————————————————————<code>[^0-9]</code></li>
+<li><code>\s</code> 匹配不可见原子 ———————————<code>[\f\n\r\t\v]</code></li>
+<li><code>\S</code> —————————————————<code>[^\f\n\r\t\v]</code></li>
+<li><code>\w</code> 匹配任意数字字母或下划线————————<code>[0-9a-zA-z]</code></li>
+<li><code>\W</code> —————————————————-<code>[^0-9a-zA-Z]</code></li>
 <li><code>\b</code> 零宽单词边界</li>
 <li><code>\B</code> 非零宽单词边界</li>
 </ul>
@@ -150,17 +150,17 @@
 <li><p>懒惰模式  <em>(不要和我比，我懒得和你比)</em></p>
 <p>匹配尽可能少的原子例如<code>z*?</code>只能匹配到1个<code>z</code></p>
 </li>
-<li><p>全局匹配 <code>/abc/g</code></p>
+<li><p>全局匹配 ———————-<code>/abc/g</code></p>
 </li>
-<li>忽略大小写匹配 <code>/AoMy/i</code></li>
-<li>跨行匹配 <code>/.../m</code></li>
+<li>忽略大小写匹配 —————<code>/AoMy/i</code></li>
+<li>跨行匹配 ———————-<code>/.../m</code></li>
 </ul>
 <h3 id="6-常用正则表达式">6.常用正则表达式</h3><ul>
-<li>非空 <code>/.+/</code></li>
-<li>保留两位小数 <code>/\d+\.\d{2}$/</code></li>
-<li>手机号 <code>/1[34578]\d{9}/</code></li>
-<li>email地址 <code>/^\w+(\.\w+)*@\w+(\.\w+)+$/</code></li>
-<li>url地址 <code>/^(https?://)?(\w\.)+[a-zA-z]+$/</code></li>
+<li>非空 ——————————————————————<code>/.+/</code></li>
+<li>保留两位小数 ——————————————-<code>/\d+\.\d{2}$/</code></li>
+<li>手机号 ————————————————<code>/1[34578]\d{9}/</code></li>
+<li>email地址 ————————-<code>/^\w+(\.\w+)*@\w+(\.\w+)+$/</code></li>
+<li>url地址 ———————<code>/^(https?://)?(\w\.)+[a-zA-z]+$/</code></li>
 <li>不一一列举，推荐网站可以去查询一些常用的正则表达式<a href="http://www.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="external">W3Cfuns</a></li>
 </ul>
 <h3 id="7-_javascript中的正则表达式">7. javascript中的正则表达式</h3><p>因为本人是前端工程师，所以比较关注js中正则表达式的运用，在js语法中正则表达式是一种特殊的对象类型，可以直接用<code>new RegExp()</code>来创建RegExp对象。</p>
