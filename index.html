@@ -54,6 +54,118 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-07-12T09:03:09.000Z"><a href="/2015/07/12/async/">2015-07-12</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/07/12/async/">JavaScript中的异步</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>这是我在工作中写的代码：</p>
+<pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
+        method:<span class="string">'POST'</span>,
+        data: {},
+        onload: <span class="function"><span class="keyword">function</span><span class="params">(json)</span> </span>{
+            <span class="keyword">if</span>(!!json&amp;&amp;json.code==<span class="number">200</span>){
+                   notify.notify({
+                       type: <span class="string">"success"</span>,
+                       message: json.message || <span class="string">"操作成功！"</span>
+                });
+            *<span class="keyword">this</span>.$emit(<span class="string">'save'</span>);*
+                }   
+            },
+            onerror: <span class="function"><span class="keyword">function</span><span class="params">(json)</span> </span>{
+        });            
+        _this.destroy();_
+    }
+    <span class="keyword">this</span>.$on(<span class="string">'save'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{alert(<span class="string">'saved'</span>);});
+</code></pre><p> 用的框架比较小众，大家可以忽略，主体部分应该都看得懂。在执行中遇到问题，上面<code>*</code>号包围的代码没有办法触发，在chrome中调试发现<code>save</code>事件没有被定义，我把代码移到ajax回调函数外面，就能找到并触发<code>save</code>方法，那么到底哪里出问题了呢，找了半天才发现原来问题出在上面<code>_</code>包围的代码，在调用<code>save</code>之前整个组件已经被销毁了，在组件上自然就找不到<code>save</code>方法了，那么问题就来了，为什么<code>destroy</code>方法会先执行呢？原来在js中ajax是异步加载的，ajax回调时会等待返回结果而不影响后面代码运行。那么既然踩了坑，就把坑填一填，省的下次在踩。</p>
+<h2 id="JavaScript是单线程的">JavaScript是单线程的</h2><p>什么是单线程？就是说一次只能做一项任务，如果任务多了，就放到一个任务队列里面去，就像排队一样。</p>
+<p><img src="/img/singlethread.jpg" alt="单线程"></p>
+<p>这种单线程的机制，好处是执行环境单一，容易理解，也容易控制；但是缺点也很明显，如果执行一个任务时间过长，排在后面的任务会被阻塞，而且没有足够的时间分配给UI的话，那么还会造成UI卡死的现象，也就是所谓的浏览器假死。</p>
+<h2 id="同步和异步">同步和异步</h2><p>同步很好理解，就是将所有的任务放到任务队列中，任务一执行完成后执行任务二，以此类推，任务的执行是有序的、同步的；</p>
+<p>异步的方式，则是可以让每个任务有一个或者多个回调函数，当任务一执行完成之后立即执行指定的回调函数，而不是执行任务二。而且任务二的执行并不依赖于任务一，在任务一没有完成前，也可能被执行，这样的执行方式，任务完成的顺序是不确定的，是异步的。</p>
+<p><img src="/img/synchronous.png" alt="同步和异步"></p>
+<blockquote>
+<p>但是有一点要注意，异步方式，并不是让两个任务真的并行了，至少现有的所有方法都不能让JavaScript这门语言做到两个任务并行。    </p>
+</blockquote>
+<p>异步方式最好的例子就是Ajax请求，在浏览器端将数据发送给服务器端，而之后，不等这个请求完成，就会让出时间，去执行下面的代码。而等请求返回数据之后，再继续执行为请求所指定的回调方法。</p>
+<h2 id="setTimeout喝setInterval">setTimeout喝setInterval</h2><p>setTimeout()和setInterVal()可以创建定时器来实现功能。之前对JavaScript的定时器存在误解，认为它们是线程，其实JavaScript是运行于单线程的环境中的，而定时器仅仅只是计划代码在未来的某个时间执行。执行时机是不能保证的，因为在页面的生命周期中，不同时间可能有其他代码在控制JavaScript进程。在页面下载完后的代码运行、事件处理程序、Ajax回调函数都必须使用同样的线程来执行。实际上，浏览器负责进行排序，指派某段代码在某个时间点运行的优先级。</p>
+<p> 定时器对队列的工作方式是，当特定时间过去后将代码插入。不过，给队列添加代码并不意味着对它立刻执行，而只能表示它会尽快执行。设定一个250ms后执行的定时器不代表到了250ms代码就立刻执行，它表示代码会在250ms后被加入到队列中。如果在这个时间点上，队列中没有其他东西，那么这段代码就会被执行，表面上看上去好像代码就在精确指定的时间点上执行了。其他情况下，代码可能明显地等待更长时间才执行。</p>
+<p> 如以下代码：      </p>
+<pre><code><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'btn'</span>);
+btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="built_in">document</span>.getElementById(<span class="string">'message'</span>).style.visibility = <span class="string">'visible'</span>;
+    },<span class="number">250</span>);
+    <span class="comment">//其他代码</span>
+}
+</code></pre><p> 在这里给一个按钮设置了一个事件处理程序。事件处理程序设置了一个250ms后调用的定时器。点击按钮后，首先将<code>onclick</code>事件处理程序加入队列。该程序执行后才设置定时器，再有250ms后，指定的代码才被添加到    队列中等待执行。实际上，对setTimeout()的调用表示要晚点执行某些代码。</p>
+<p> 定时器最重要的事，指定的时间间隔表示何时将定时器的代码添加到队列，而不是何时实际执行代码。如果前面例子中的<code>onclick</code>事件处理程序执行了300ms,那么定时器的代码至少要在定时器设置后的300ms后才会被执行。队列中所有的代码都要等到Javascript进程空闲之后才能执行，而不管它们是如何添加到队列中的。</p>
+<p> 使用setInterval()创建的定时器确保了定时器代码规则的插入队列中。这个方式的问题在于，定时器代码可能在代码再次被添加到队列之前还没有完全执行，结果导致定时器代码连续运行好几次，而之间没有任何停顿。幸好，Javascript引擎，在使用setInterval()时，仅当没有该定时器的任何其他代码实例时，才将定时器代码添加到队列中。这确保了定时器加入到队列中的最小时间间隔为指定间隔。</p>
+<p> 但是setInterval()有两个问题：</p>
+<p> （1）某些间隔会被跳过；</p>
+<p> （2）多个定时器的代码执行之间的间隔可能会比预期的小</p>
+<p> 为了避免setInterval()的这两个问题，可以使用如下模式链式setTimeout()调用</p>
+<pre><code><span class="keyword">var</span> interval = <span class="number">1000</span>;
+setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">//处理代码</span>
+    setTimeout(<span class="built_in">arguments</span>.callee,interval);
+},interval);
+</code></pre><h2 id="ajax">ajax</h2><pre><code>var xmlReq = createXMLHTTP<span class="params">()</span>;<span class="comment">//创建一个xmlhttprequest对象</span>
+<span class="function"><span class="keyword">function</span> <span class="title">testAsynRequest</span><span class="params">()</span> {</span>
+var url = <span class="string">"/AsyncHandler.ashx?action=ajax"</span>;
+xmlReq.open<span class="params">(<span class="string">"post"</span>, url, <span class="literal">true</span>)</span>;
+xmlReq.setRequestHeader<span class="params">(<span class="string">"Content-Type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>)</span>;
+xmlReq.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+    <span class="keyword">if</span> <span class="params">(xmlReq.readyState == <span class="number">4</span>)</span> {
+        <span class="keyword">if</span> <span class="params">(xmlReq.status == <span class="number">200</span>)</span> {
+            var jsonData = eval<span class="params">('<span class="params">(' + xmlReq.responseText + ')</span>')</span>;
+            alert<span class="params">(jsonData.message)</span>;
+        }
+        <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(xmlReq.status == <span class="number">404</span>)</span> {
+            alert<span class="params">(<span class="string">"Requested URL is not found."</span>)</span>;
+        } <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(xmlReq.status == <span class="number">403</span>)</span> {
+            alert<span class="params">(<span class="string">"Access denied."</span>)</span>;
+        } <span class="keyword">else</span> {
+            alert<span class="params">(<span class="string">"status is "</span> + xmlReq.status)</span>;
+        }
+    }
+};
+xmlReq.send<span class="params">(null)</span>;
+}
+testAsynRequest<span class="params">()</span>;<span class="comment">//1秒后调用回调函数</span>
+
+while <span class="params">(<span class="literal">true</span>)</span> {
+}
+</code></pre><p>理论上，如果ajax异步请求，它的异步回调函数是在单独一个线程中，那么回调函数必然不被其他线程”阻挠“而顺利执行，也就是1秒后，它回调执行弹出‘ajax’，可是实际情况并非如此，回调函数无法执行，因为浏览器再次因为死循环假死。</p>
+<p>既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-07-04T06:09:24.000Z"><a href="/2015/07/04/RegExp/">2015-07-04</a></time>
       
       
@@ -160,7 +272,7 @@
 <li>保留两位小数——————————————-<code>/\d+\.\d{2}$/</code></li>
 <li>手机号 ————————————————-<code>/1[34578]\d{9}/</code></li>
 <li>email地址 ————————-<code>/^\w+(\.\w+)*@\w+(\.\w+)+$/</code></li>
-<li>url地址 ———————<code>/^(https?://)?(\w+\.)+[a-zA-z]+$/</code></li>
+<li>url地址 ———————<code>/^(https?://)?(\w\.)+[a-zA-z]+$/</code></li>
 <li>不一一列举，推荐网站可以去查询一些常用的正则表达式<a href="http://www.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="external">W3Cfuns</a></li>
 </ul>
 <h3 id="7-_javascript中的正则表达式">7. javascript中的正则表达式</h3><p>因为本人是前端工程师，所以比较关注js中正则表达式的运用，在js语法中正则表达式是一种特殊的对象类型，可以直接用<code>new RegExp()</code>来创建RegExp对象。</p>
@@ -297,7 +409,7 @@
 </li>
 <li><p><a href="http://zhuanlan.zhihu.com/pinapps" target="_blank" rel="external">pinapps</a></p>
 </li>
-<li><p><a href="https://github.com/hzlzh/Best-App/blob/master/README.md" target="_blank" rel="external">Best App</a>个人觉得这边推荐的软件质量都不赖（只是有点贵）</p>
+<li><p><a href="https://github.com/hzlzh/Best-App/blob/master/README.md" target="_blank" rel="external">Best App</a>这边推荐的软件质量都不赖（只是有点贵）</p>
 </li>
 <li><p><a href="http://www.odaydown.com/" target="_blank" rel="external">0daydown</a></p>
 </li>
@@ -503,6 +615,8 @@ _ _ _____
   <ul class="entry">
   
     <li><a href="/tags/学习-Study/">学习 | Study</a><small>3</small></li>
+  
+    <li><a href="/tags/工作-Work/">工作 | Work</a><small>1</small></li>
   
   </ul>
 </div>
