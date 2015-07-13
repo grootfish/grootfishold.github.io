@@ -4,9 +4,9 @@
   <title><![CDATA[Hexo-grootfish]]></title>
   <subtitle><![CDATA[1000 words a  Day]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://grootfish.github.com//"/>
+  <link href="http://grootfish.github.io//"/>
   <updated>2015-07-13T12:32:09.000Z</updated>
-  <id>http://grootfish.github.com//</id>
+  <id>http://grootfish.github.io//</id>
   
   <author>
     <name><![CDATA[grootfish]]></name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title><![CDATA[JavaScript中的异步]]></title>
-    <link href="http://grootfish.github.com/2015/07/12/async/"/>
-    <id>http://grootfish.github.com/2015/07/12/async/</id>
+    <link href="http://grootfish.github.io/2015/07/12/async/"/>
+    <id>http://grootfish.github.io/2015/07/12/async/</id>
     <published>2015-07-12T09:03:09.000Z</published>
     <updated>2015-07-13T12:32:09.000Z</updated>
     <content type="html"><![CDATA[<p>这是我在工作中写的代码：</p>
@@ -108,14 +108,14 @@ while <span class="params">(<span class="literal">true</span>)</span> {
    ]]>
     </summary>
     
-      <category term="工作 | Work" scheme="http://grootfish.github.com/tags/%E5%B7%A5%E4%BD%9C-Work/"/>
+      <category term="工作 | Work" scheme="http://grootfish.github.io/tags/%E5%B7%A5%E4%BD%9C-Work/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[正则表达式]]></title>
-    <link href="http://grootfish.github.com/2015/07/04/RegExp/"/>
-    <id>http://grootfish.github.com/2015/07/04/RegExp/</id>
+    <link href="http://grootfish.github.io/2015/07/04/RegExp/"/>
+    <id>http://grootfish.github.io/2015/07/04/RegExp/</id>
     <published>2015-07-04T06:09:24.000Z</published>
     <updated>2015-07-04T14:12:00.000Z</updated>
     <content type="html"><![CDATA[<h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
@@ -283,14 +283,14 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <l]]>
     </summary>
     
-      <category term="学习 | Study" scheme="http://grootfish.github.com/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+      <category term="学习 | Study" scheme="http://grootfish.github.io/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[菜鸟玩Mac]]></title>
-    <link href="http://grootfish.github.com/2015/06/27/Mac/"/>
-    <id>http://grootfish.github.com/2015/06/27/Mac/</id>
+    <link href="http://grootfish.github.io/2015/06/27/Mac/"/>
+    <id>http://grootfish.github.io/2015/06/27/Mac/</id>
     <published>2015-06-27T09:59:55.000Z</published>
     <updated>2015-07-12T00:35:34.000Z</updated>
     <content type="html"><![CDATA[<p>前些天刚拿到Mac pro,最近几天一直在瞎折腾。看了很多教程，也下了很多软件（原谅我是屌丝很多高大上的软件我下了破解版，我承诺等我以后变成高帅富我会买正版的）。这边把自己体验学习心得总结一下，高手不要喷我，忽略就好。</p>
@@ -361,14 +361,14 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <h2 id="Mac_OS_x_界面">Ma]]>
     </summary>
     
-      <category term="学习 | Study" scheme="http://grootfish.github.com/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+      <category term="学习 | Study" scheme="http://grootfish.github.io/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Hello Hexo]]></title>
-    <link href="http://grootfish.github.com/2015/06/21/hello-world/"/>
-    <id>http://grootfish.github.com/2015/06/21/hello-world/</id>
+    <link href="http://grootfish.github.io/2015/06/21/hello-world/"/>
+    <id>http://grootfish.github.io/2015/06/21/hello-world/</id>
     <published>2015-06-21T13:07:45.000Z</published>
     <updated>2015-06-15T02:07:13.000Z</updated>
     <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -389,8 +389,8 @@ while <span class="params">(<span class="literal">true</span>)</span> {
   
   <entry>
     <title><![CDATA[Markdown语法整理]]></title>
-    <link href="http://grootfish.github.com/2015/06/14/markdown/"/>
-    <id>http://grootfish.github.com/2015/06/14/markdown/</id>
+    <link href="http://grootfish.github.io/2015/06/14/markdown/"/>
+    <id>http://grootfish.github.io/2015/06/14/markdown/</id>
     <published>2015-06-14T01:08:39.000Z</published>
     <updated>2015-06-27T13:23:39.000Z</updated>
     <content type="html"><![CDATA[<h1 id="区块元素（对应块级元素）">区块元素（对应块级元素）</h1><h2 id="标题">标题</h2><p>Markdown 有两种标题的语法</p>
@@ -484,7 +484,7 @@ _ _ _____
 <pre><code><span class="header">T]]>
     </summary>
     
-      <category term="学习 | Study" scheme="http://grootfish.github.com/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+      <category term="学习 | Study" scheme="http://grootfish.github.io/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
     
   </entry>
   
