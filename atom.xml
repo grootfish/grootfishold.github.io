@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title><![CDATA[Hexo-grootfish]]></title>
+  <subtitle><![CDATA[1000 words a  Day]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://yoursite.com//"/>
+  <updated>2015-07-13T12:32:09.000Z</updated>
+  <id>http://yoursite.com//</id>
+  
+  <author>
+    <name><![CDATA[grootfish]]></name>
+    <email><![CDATA[groot01@163.com]]></email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[JavaScript中的异步]]></title>
+    <link href="http://yoursite.com/2015/07/12/async/"/>
+    <id>http://yoursite.com/2015/07/12/async/</id>
+    <published>2015-07-12T09:03:09.000Z</published>
+    <updated>2015-07-13T12:32:09.000Z</updated>
+    <content type="html"><![CDATA[<p>这是我在工作中写的代码：</p>
+<pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
+        method:<span class="string">'POST'</span>,
+        data: {},
+        onload: <span class="function"><span class="keyword">function</span><span class="params">(json)</span> </span>{
+            <span class="keyword">if</span>(!!json&amp;&amp;json.code==<span class="number">200</span>){
+                   notify.notify({
+                       type: <span class="string">"success"</span>,
+                       message: json.message || <span class="string">"操作成功！"</span>
+                });
+            *<span class="keyword">this</span>.$emit(<span class="string">'save'</span>);*
+                }   
+            },
+            onerror: <span class="function"><span class="keyword">function</span><span class="params">(json)</span> </span>{
+        });            
+        _this.destroy();_
+    }
+    <span class="keyword">this</span>.$on(<span class="string">'save'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{alert(<span class="string">'saved'</span>);});
+</code></pre><p> 用的框架比较小众，大家可以忽略，主体部分应该都看得懂。在执行中遇到问题，上面<code>*</code>号包围的代码没有办法触发，在chrome中调试发现<code>save</code>事件没有被定义，我把代码移到ajax回调函数外面，就能找到并触发<code>save</code>方法，那么到底哪里出问题了呢，找了半天才发现原来问题出在上面<code>_</code>包围的代码，在调用<code>save</code>之前整个组件已经被销毁了，在组件上自然就找不到<code>save</code>方法了，那么问题就来了，为什么<code>destroy</code>方法会先执行呢？原来在js中ajax是异步加载的，ajax回调时会等待返回结果而不影响后面代码运行。那么既然踩了坑，就把坑填一填，省的下次在踩。</p>
+<h2 id="JavaScript是单线程的">JavaScript是单线程的</h2><p>什么是单线程？就是说一次只能做一项任务，如果任务多了，就放到一个任务队列里面去，就像排队一样。</p>
+<p><img src="/img/singlethread.jpg" alt="单线程"></p>
+<p>这种单线程的机制，好处是执行环境单一，容易理解，也容易控制；但是缺点也很明显，如果执行一个任务时间过长，排在后面的任务会被阻塞，而且没有足够的时间分配给UI的话，那么还会造成UI卡死的现象，也就是所谓的浏览器假死。</p>
+<h2 id="同步和异步">同步和异步</h2><p>同步很好理解，就是将所有的任务放到任务队列中，任务一执行完成后执行任务二，以此类推，任务的执行是有序的、同步的；</p>
+<p>异步的方式，则是可以让每个任务有一个或者多个回调函数，当任务一执行完成之后立即执行指定的回调函数，而不是执行任务二。而且任务二的执行并不依赖于任务一，在任务一没有完成前，也可能被执行，这样的执行方式，任务完成的顺序是不确定的，是异步的。</p>
+<p><img src="/img/synchronous.png" alt="同步和异步"></p>
+<blockquote>
+<p>但是有一点要注意，异步方式，并不是让两个任务真的并行了，至少现有的所有方法都不能让JavaScript这门语言做到两个任务并行。    </p>
+</blockquote>
+<p>异步方式最好的例子就是Ajax请求，在浏览器端将数据发送给服务器端，而之后，不等这个请求完成，就会让出时间，去执行下面的代码。而等请求返回数据之后，再继续执行为请求所指定的回调方法。</p>
+<h2 id="setTimeout和setInterval">setTimeout和setInterval</h2><p>setTimeout()和setInterVal()可以创建定时器来实现功能。之前对JavaScript的定时器存在误解，认为它们是线程，其实JavaScript是运行于单线程的环境中的，而定时器仅仅只是计划代码在未来的某个时间执行。执行时机是不能保证的，因为在页面的生命周期中，不同时间可能有其他代码在控制JavaScript进程。在页面下载完后的代码运行、事件处理程序、Ajax回调函数都必须使用同样的线程来执行。实际上，浏览器负责进行排序，指派某段代码在某个时间点运行的优先级。</p>
+<p> 定时器对队列的工作方式是，当特定时间过去后将代码插入。不过，给队列添加代码并不意味着对它立刻执行，而只能表示它会尽快执行。设定一个250ms后执行的定时器不代表到了250ms代码就立刻执行，它表示代码会在250ms后被加入到队列中。如果在这个时间点上，队列中没有其他东西，那么这段代码就会被执行，表面上看上去好像代码就在精确指定的时间点上执行了。其他情况下，代码可能明显地等待更长时间才执行。</p>
+<p> 如以下代码：      </p>
+<pre><code><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'btn'</span>);
+btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        <span class="built_in">document</span>.getElementById(<span class="string">'message'</span>).style.visibility = <span class="string">'visible'</span>;
+    },<span class="number">250</span>);
+    <span class="comment">//其他代码</span>
+}
+</code></pre><p> 在这里给一个按钮设置了一个事件处理程序。事件处理程序设置了一个250ms后调用的定时器。点击按钮后，首先将<code>onclick</code>事件处理程序加入队列。该程序执行后才设置定时器，再有250ms后，指定的代码才被添加到    队列中等待执行。实际上，对setTimeout()的调用表示要晚点执行某些代码。</p>
+<p> 定时器最重要的事，指定的时间间隔表示何时将定时器的代码添加到队列，而不是何时实际执行代码。如果前面例子中的<code>onclick</code>事件处理程序执行了300ms,那么定时器的代码至少要在定时器设置后的300ms后才会被执行。队列中所有的代码都要等到Javascript进程空闲之后才能执行，而不管它们是如何添加到队列中的。</p>
+<p> 使用setInterval()创建的定时器确保了定时器代码规则的插入队列中。这个方式的问题在于，定时器代码可能在代码再次被添加到队列之前还没有完全执行，结果导致定时器代码连续运行好几次，而之间没有任何停顿。幸好，Javascript引擎，在使用setInterval()时，仅当没有该定时器的任何其他代码实例时，才将定时器代码添加到队列中。这确保了定时器加入到队列中的最小时间间隔为指定间隔。</p>
+<p> 但是setInterval()有两个问题：</p>
+<p> （1）某些间隔会被跳过；</p>
+<p> （2）多个定时器的代码执行之间的间隔可能会比预期的小</p>
+<p> 为了避免setInterval()的这两个问题，可以使用如下模式链式setTimeout()调用</p>
+<pre><code><span class="keyword">var</span> interval = <span class="number">1000</span>;
+setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">//处理代码</span>
+    setTimeout(<span class="built_in">arguments</span>.callee,interval);
+},interval);
+</code></pre><h2 id="ajax">ajax</h2><pre><code>var xmlReq = createXMLHTTP<span class="params">()</span>;<span class="comment">//创建一个xmlhttprequest对象</span>
+<span class="function"><span class="keyword">function</span> <span class="title">testAsynRequest</span><span class="params">()</span> {</span>
+var url = <span class="string">"/AsyncHandler.ashx?action=ajax"</span>;
+xmlReq.open<span class="params">(<span class="string">"post"</span>, url, <span class="literal">true</span>)</span>;
+xmlReq.setRequestHeader<span class="params">(<span class="string">"Content-Type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>)</span>;
+xmlReq.onreadystatechange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+    <span class="keyword">if</span> <span class="params">(xmlReq.readyState == <span class="number">4</span>)</span> {
+        <span class="keyword">if</span> <span class="params">(xmlReq.status == <span class="number">200</span>)</span> {
+            var jsonData = eval<span class="params">('<span class="params">(' + xmlReq.responseText + ')</span>')</span>;
+            alert<span class="params">(jsonData.message)</span>;
+        }
+        <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(xmlReq.status == <span class="number">404</span>)</span> {
+            alert<span class="params">(<span class="string">"Requested URL is not found."</span>)</span>;
+        } <span class="keyword">else</span> <span class="keyword">if</span> <span class="params">(xmlReq.status == <span class="number">403</span>)</span> {
+            alert<span class="params">(<span class="string">"Access denied."</span>)</span>;
+        } <span class="keyword">else</span> {
+            alert<span class="params">(<span class="string">"status is "</span> + xmlReq.status)</span>;
+        }
+    }
+};
+xmlReq.send<span class="params">(null)</span>;
+}
+testAsynRequest<span class="params">()</span>;<span class="comment">//1秒后调用回调函数</span>
+
+while <span class="params">(<span class="literal">true</span>)</span> {
+}
+</code></pre><p>理论上，如果ajax异步请求，它的异步回调函数是在单独一个线程中，那么回调函数必然不被其他线程”阻挠“而顺利执行，也就是1秒后，它回调执行弹出‘ajax’，可是实际情况并非如此，回调函数无法执行，因为浏览器再次因为死循环假死。</p>
+<p>既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>这是我在工作中写的代码：</p>
+<pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+   ]]>
+    </summary>
+    
+      <category term="工作 | Work" scheme="http://yoursite.com/tags/%E5%B7%A5%E4%BD%9C-Work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[正则表达式]]></title>
+    <link href="http://yoursite.com/2015/07/04/RegExp/"/>
+    <id>http://yoursite.com/2015/07/04/RegExp/</id>
+    <published>2015-07-04T06:09:24.000Z</published>
+    <updated>2015-07-04T14:12:00.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
+<ul>
+<li>界定符</li>
+<li>原子<ul>
+<li>元字符</li>
+<li>原子的集合</li>
+</ul>
+</li>
+<li>量词</li>
+<li>边界控制</li>
+<li>模式单元</li>
+<li>修正模式</li>
+</ul>
+<h3 id="1-_界定符">1. 界定符</h3><p>界定符最简单啦，表示一个正则表达式的开始和结束，例如<code>/[0-9]/</code>,<code>/\d/</code>等等</p>
+<h3 id="2-_原子">2. 原子</h3><p>原子是正则表达式的基本组成元素，可以分为两类：</p>
+<ul>
+<li><p>可见原子<br> Unicode编码表中用键盘输出后可见的字符。以下都是可见原子</p>
+<ul>
+<li>标点 某些特殊标点需要转义比如<code>\.</code>,<code>\*</code>等等</li>
+<li>英文字母数字</li>
+<li>汉字、日文等等语言文字(<strong>一般用unicode编码匹配避免编码错误</strong>)</li>
+<li>各种奇奇怪怪的符号（原谅我的编辑器打不出来）</li>
+<li>其他可见的字符</li>
+</ul>
+</li>
+<li><p>不可见原子<br>自然是不可见的字符啦</p>
+<ul>
+<li>换行符 —————-<code>\n</code></li>
+<li>回车  —————— <code>\r</code></li>
+<li>制表符 —————-<code>\t</code></li>
+<li>空格</li>
+<li>其他不可见字符         </li>
+</ul>
+</li>
+</ul>
+<h4 id="元字符">元字符</h4><p>元字符是原子的筛选方式     </p>
+<ul>
+<li><code>|</code>  匹配两个或多个分支选项</li>
+<li><code>[]</code>匹配方括号里<strong>任意一个</strong>原子匹配,支持区间匹配<code>[a-z]</code>等</li>
+<li><code>[^]</code> 方括号里的原子都不匹配（<strong><code>^</code>必须跟在左括号后面</strong>） </li>
+</ul>
+<h4 id="原子的集合">原子的集合</h4><ul>
+<li><code>.</code>  匹配除换行外任意字符 ———————————-<code>[^\n]</code></li>
+<li><code>\d</code> —————————————————————<code>[0-9]</code></li>
+<li><code>\D</code> ————————————————————-<code>[^0-9]</code></li>
+<li><code>\s</code> 匹配不可见原子 ——————————<code>[\f\n\r\t\v]</code></li>
+<li><code>\S</code> —————————————————<code>[^\f\n\r\t\v]</code></li>
+<li><code>\w</code> 匹配任意数字字母或下划线——————<code>[0-9a-zA-z]</code></li>
+<li><code>\W</code> —————————————————-<code>[^0-9a-zA-Z]</code></li>
+<li><code>\b</code> 零宽单词边界</li>
+<li><code>\B</code> 非零宽单词边界</li>
+</ul>
+<h3 id="3-_量词">3. 量词</h3><ul>
+<li><code>{n}</code> 表示量词前面的原子恰好出现n次</li>
+<li><code>{n,}</code>表示量词前面的原子至少出现n次</li>
+<li><code>{n,m}</code>表示量词前面的原子至少出现n次，至多出现m次</li>
+<li><code>*</code> 原子出现0到任意多次 <code>{0,}</code></li>
+<li><code>+</code> 原子出现1到任意多次 <code>{1,}</code></li>
+<li><code>?</code> 原子出现0到1次 <code>{0,1}</code></li>
+</ul>
+<h3 id="4-_边界控制与模式单元">4. 边界控制与模式单元</h3><ul>
+<li>边界控制<ul>
+<li><code>^</code>匹配字符串开始位置</li>
+<li><code>$</code>匹配字符串结束位置</li>
+</ul>
+</li>
+<li><p>模式单元</p>
+<ul>
+<li><code>(x)</code>匹配其中的整体为一个原子，即括号里面内容当作一个原子</li>
+<li><p><code>(x)\n</code> 括号和<code>\n</code>(n代表1开始的自然数)联合使用<code>\n</code>可以表示第n个括号内容的引用例如:</p>
+<pre><code>/(abc)\<span class="number">1</span>/.<span class="function"><span class="title">test</span><span class="params">(<span class="string">"abcabc"</span>)</span></span>
+</code></pre></li>
+<li><p><code>(?:x)</code> 表示括号里的内容仅作为分组，不引用例如：</p>
+<pre><code>/<span class="params">(?:abc)</span><span class="params">(xyz)</span>\<span class="number">1</span>/.test<span class="params">(<span class="string">"abcxyzxyz"</span>)</span>
+</code></pre><p> <code>\1</code>引用的是<code>(xyz)</code>,而不引用<code>(abc)</code>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-_修正模式">5. 修正模式</h3><ul>
+<li><p>贪婪模式 <em>（我还要）</em></p>
+<p>正则表达式的默认匹配模式，匹配尽可能多的原子例如<code>z{10}</code>它就会匹配到全部的10个<code>z</code></p>
+</li>
+<li><p>懒惰模式  <em>(不要和我比，我懒得和你比)</em></p>
+<p>匹配尽可能少的原子例如<code>z+?</code>只能匹配到1个<code>z</code></p>
+</li>
+<li><p>全局匹配 ———————-<code>/abc/g</code></p>
+</li>
+<li>忽略大小写匹配 ————-<code>/AoMy/i</code></li>
+<li>跨行匹配 ———————-<code>/.../m</code></li>
+</ul>
+<h3 id="6-常用正则表达式">6.常用正则表达式</h3><ul>
+<li>非空 ———————————————————————<code>/.+/</code></li>
+<li>保留两位小数——————————————-<code>/\d+\.\d{2}$/</code></li>
+<li>手机号 ————————————————-<code>/1[34578]\d{9}/</code></li>
+<li>email地址 ————————-<code>/^\w+(\.\w+)*@\w+(\.\w+)+$/</code></li>
+<li>url地址 ———————<code>/^(https?://)?(\w\.)+[a-zA-z]+$/</code></li>
+<li>不一一列举，推荐网站可以去查询一些常用的正则表达式<a href="http://www.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="external">W3Cfuns</a></li>
+</ul>
+<h3 id="7-_javascript中的正则表达式">7. javascript中的正则表达式</h3><p>因为本人是前端工程师，所以比较关注js中正则表达式的运用，在js语法中正则表达式是一种特殊的对象类型，可以直接用<code>new RegExp()</code>来创建RegExp对象。</p>
+<h4 id="RegExp对象">RegExp对象</h4><ul>
+<li><p>对象属性</p>
+<ul>
+<li><p>global属性    </p>
+<pre><code><span class="regexp">/abc/g</span>.<span class="built_in">global</span>返回<span class="literal">true</span>
+</code></pre></li>
+<li><p>ignoreCase属性 </p>
+<pre><code>/abc/<span class="tag">i</span>.ignoreCase
+</code></pre></li>
+<li><p>multiline属性 </p>
+<pre><code><span class="regexp">/abc/m</span>.multiline
+</code></pre></li>
+<li><p>source属性 </p>
+<pre><code><span class="regexp">/abc/</span>.<span class="keyword">source</span>返回<span class="string">'abc'</span>即匹配项 
+</code></pre></li>
+</ul>
+</li>
+<li><p>对象方法</p>
+<ul>
+<li><p>test方法 </p>
+<pre><code>/\d+/.<span class="function"><span class="title">test</span><span class="params">(<span class="string">'123'</span>)</span></span>返回true
+</code></pre></li>
+<li><p>exec方法 </p>
+<pre><code>/\d+/.<span class="function"><span class="title">exec</span><span class="params">(<span class="string">'12afs34'</span>)</span></span>返回[<span class="number">12</span>,<span class="number">34</span>]
+</code></pre></li>
+<li><p>toString方法</p>
+</li>
+<li>compile方法 可以修改正则表达式对象的属性和匹配值</li>
+</ul>
+</li>
+</ul>
+<h4 id="字符串与RegExp相关方法">字符串与RegExp相关方法</h4><ul>
+<li><p>search方法 </p>
+<pre><code><span class="string">'abc123d'</span>.<span class="function"><span class="title">search</span><span class="params">(/\d+/)</span></span> 返回<span class="number">3</span>即第一次匹配到的字符串下标
+</code></pre></li>
+<li><p>replace方法 </p>
+<pre><code><span class="string">'aabbbbcc'</span>.<span class="function"><span class="title">replace</span><span class="params">(/b+?/,<span class="string">'1'</span>)</span></span> 返回aa1bbbcc
+</code></pre></li>
+<li><p>match方法 </p>
+<pre><code><span class="string">'AB12casd9'</span>.<span class="function"><span class="title">match</span><span class="params">(/\d+/)</span></span> 返回[<span class="number">12</span>,<span class="number">9</span>]
+</code></pre></li>
+<li><p>split方法 </p>
+<pre><code><span class="string">'ab12sdfs1ds'</span>.<span class="function"><span class="title">split</span><span class="params">(/\d+/)</span></span> 返回[ab,sdfs,ds]
+</code></pre></li>
+</ul>
+<h3 id="8-_正则表达式工具">8. 正则表达式工具</h3><p>最后在介绍一些正则表达式工具</p>
+<ul>
+<li><a href="http://www.w3cfuns.com/tools.php?mod=regex" target="_blank" rel="external">W3Cfuns</a></li>
+<li><a href="http://regexpal.com/" target="_blank" rel="external">regexpal</a></li>
+<li><a href="http://regexper.com/" target="_blank" rel="external">regexper</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
+<ul>
+<li>界定符</li>
+<li>原子<ul>
+<li>元字符</li>
+<li>原子的集合</li>
+</ul>
+</li>
+<li>量词</li>
+<l]]>
+    </summary>
+    
+      <category term="学习 | Study" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[菜鸟玩Mac]]></title>
+    <link href="http://yoursite.com/2015/06/27/Mac/"/>
+    <id>http://yoursite.com/2015/06/27/Mac/</id>
+    <published>2015-06-27T09:59:55.000Z</published>
+    <updated>2015-07-12T00:35:34.000Z</updated>
+    <content type="html"><![CDATA[<p>前些天刚拿到Mac pro,最近几天一直在瞎折腾。看了很多教程，也下了很多软件（原谅我是屌丝很多高大上的软件我下了破解版，我承诺等我以后变成高帅富我会买正版的）。这边把自己体验学习心得总结一下，高手不要喷我，忽略就好。</p>
+<h2 id="Mac_OS_x_界面">Mac OS x 界面</h2><ol>
+<li><p>菜单栏<br>菜单栏在桌面左上端，左上方的 Apple 圖示 「」就像是总指挥站，負責系統的开关、睡眠、重新启动等等。你可透過選單列來執行「文件」、「編輯」等命令來控制各種應用程式。</p>
+</li>
+<li><p>桌面<br>我觉得和windows没什么区别，可以把任何东西放上面，对我这样有轻微洁癖的就不喜欢把放桌面上，顶多当临时文件夹来用，用完就删。</p>
+</li>
+<li><p>状态栏<br>状态栏在左面右上端，和windows右下角状态栏类似，默认显示一些软件运行状态，你可以使用<a href="http://www.macbartender.com/" title="Bartender" target="_blank" rel="external">Bartender</a>软件来管理状态栏</p>
+</li>
+<li><p>Dock<br>位于屏幕底部或一侧的图标栏就是 Dock。它提供了访问随 Mac 提供的许多 app（例如邮件、Safari 和信息）的便捷途径。您也可以将您自己的 app、文稿和文件夹添加到 Dock。<br>Dock 将 app 存放在其左侧。文件夹、文稿及最小化窗口还有废纸篓则存放在 Dock 的右侧。如果您仔细观察，则会看到将这两侧分开的一条垂直分隔线。</p>
+</li>
+</ol>
+<h2 id="手势和快捷键">手势和快捷键</h2><p>对于手势和快捷键我的建议是<strong>少量即可，多多益善</strong></p>
+<p>掌握好多手势和快捷键可以有效的提高工作效率，触控板和快捷键基本让你可以脱离鼠标。多手势我就不说了，苹果的官网和操作系统自带的说明已经非常详尽。我简单介绍几个常用的快捷键。<br><img src="/img/b.jpg" alt="Mac 快捷键"> </p>
+<ul>
+<li><p>Command+Tab                   任意情况下切换应用程序 - 向前循环   </p>
+</li>
+<li><p>Shift+Command+Tab          切换应用程序 - 向后循环     </p>
+</li>
+<li><p>Command+Delete               把选中的资源移到废纸篓</p>
+</li>
+<li><p>Shift+Command+Delete     清倒相关程序的废纸篓</p>
+</li>
+<li><p>Command+~                       同一应用程序多窗口间切换</p>
+</li>
+<li><p>Command+F                       呼出大部分应用程序的查询功能</p>
+</li>
+<li><p>Command+C/V/X                复制/粘贴/剪切</p>
+</li>
+<li><p>Command+N                       新建应用程序窗口</p>
+</li>
+<li><p>Command+Q                       退出当前应用程序，说明一下，所有应用程序界面左上角都有红黄绿三个小图标，点击绿色扩展到最适合的窗口大小，黄色最小化，红色关掉当前窗口，但并没有退出程序。用Command+Q配合Command+Tab关闭应用程序最为迅速</p>
+</li>
+<li><p>Command+L                       当前程序是浏览器时，可以直接定位到地址栏</p>
+</li>
+<li><p>Command+”+/-“                  放大或缩小字体 </p>
+</li>
+<li><p>Control+推出键                   显示关机对话框</p>
+</li>
+<li><p>Control+Space                    呼出Spotlight</p>
+</li>
+<li><p>Command+Space              切换输入法</p>
+</li>
+</ul>
+<p>OXS下快捷键非常多，对于普通用户来说，用好上述快捷键，已经可以解决好部分效率问题了。<br>如果你想了解所有的快捷键信息，请戳这里<br><a href="https://support.apple.com/zh-cn/HT201236" target="_blank" rel="external">OS X快捷键大全</a></p>
+<h2 id="软件推荐">软件推荐</h2><p>  Mac下的优秀软件非常多，我也不一一推荐了，直接上连接</p>
+<ul>
+<li><p><a href="http://www.zhihu.com/question/20873070" target="_blank" rel="external">程序员如何优雅地使用 Mac</a></p>
+</li>
+<li><p><a href="http://zhuanlan.zhihu.com/pinapps" target="_blank" rel="external">pinapps</a></p>
+</li>
+<li><p><a href="https://github.com/hzlzh/Best-App/blob/master/README.md" target="_blank" rel="external">Best App</a>这边推荐的软件质量都不赖（只是有点贵）</p>
+</li>
+<li><p><a href="http://www.odaydown.com/" target="_blank" rel="external">0daydown</a></p>
+</li>
+</ul>
+<p>顺便推荐两个<a href="http://www.alfredapp.com/" target="_blank" rel="external">Alfred</a>的Workflows网站</p>
+<ul>
+<li><p><a href="https://github.com/zenorocha/alfred-workflows" target="_blank" rel="external">zenorocha/alfred-workflows</a></p>
+</li>
+<li><p><a href="http://www.alfredworkflow.com/" target="_blank" rel="external">Workflows List</a></p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>前些天刚拿到Mac pro,最近几天一直在瞎折腾。看了很多教程，也下了很多软件（原谅我是屌丝很多高大上的软件我下了破解版，我承诺等我以后变成高帅富我会买正版的）。这边把自己体验学习心得总结一下，高手不要喷我，忽略就好。</p>
+<h2 id="Mac_OS_x_界面">Ma]]>
+    </summary>
+    
+      <category term="学习 | Study" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello Hexo]]></title>
+    <link href="http://yoursite.com/2015/06/21/hello-world/"/>
+    <id>http://yoursite.com/2015/06/21/hello-world/</id>
+    <published>2015-06-21T13:07:45.000Z</published>
+    <updated>2015-06-15T02:07:13.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Markdown语法整理]]></title>
+    <link href="http://yoursite.com/2015/06/14/markdown/"/>
+    <id>http://yoursite.com/2015/06/14/markdown/</id>
+    <published>2015-06-14T01:08:39.000Z</published>
+    <updated>2015-06-27T13:23:39.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="区块元素（对应块级元素）">区块元素（对应块级元素）</h1><h2 id="标题">标题</h2><p>Markdown 有两种标题的语法</p>
+<ol>
+<li><p>底线形式的标题</p>
+<pre><code><span class="header">This is an H1
+===========</span>
+<span class="header">This is an H2
+-------------------</span>
+</code></pre><p>任何数量的<code>=</code>和<code>-</code>都可以有效果</p>
+</li>
+<li><p>#开头的标题形式，在行首插入 1 到 6 个 # ，对应到标题 1 到 6 级  </p>
+<pre><code><span class="comment"># This is an H1</span>
+<span class="comment">## This is an H2</span>
+<span class="comment">###### This is an H6</span>
+</code></pre></li>
+</ol>
+<h2 id="列表">列表</h2><p>Markdown支持有序列表和无序列表<br>无序列表使用<code>*</code>、<code>+</code>或是<code>-</code>作为列表标记</p>
+<pre><code><span class="bullet">* </span>Red
+<span class="bullet">* </span>Green
+<span class="header">* Blue
+---</span>
++ Red
++ Green
+<span class="header">+ Blue
+---</span>
+<span class="bullet">- </span>Red
+<span class="bullet">- </span>Green
+<span class="bullet">- </span>Blue
+</code></pre><p>有序列表使用数字加英文句点:</p>
+<pre><code><span class="bullet">1. </span>Red
+<span class="bullet">2. </span>Green
+<span class="bullet">3. </span>Blue
+</code></pre><h2 id="引用区块（Blockquotes）">引用区块（Blockquotes）</h2><p>Markdown用<code>&gt;</code>表示引用</p>
+<pre><code>&gt; <span class="comment">## This is a header</span>
+&gt;
+&gt;&gt; this <span class="keyword">is</span> a blockquote <span class="keyword">with</span> two <span class="property">paragraphs</span>.
+&gt; 
+&gt; <span class="keyword">it</span> <span class="keyword">is</span> long.
+&gt; <span class="keyword">it</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">me</span>.
+</code></pre><p>它会显示成</p>
+<blockquote>
+<h2 id="This_is_a_header">This is a header</h2><blockquote>
+<p>this is a blockquote with two paragraphs.</p>
+</blockquote>
+<p>it is long.<br>it is not me.</p>
+</blockquote>
+<h2 id="程序代码区块">程序代码区块</h2><p>要在 Markdown 中建立程序代码区块很简单，只要简单地缩排 4 个空白就可以，例如，下面的输入：</p>
+<pre><code>This is <span class="tag">a</span> <span class="attribute">normal</span> paragraph:
+    This is <span class="tag">a</span> <span class="tag">code</span> block.
+</code></pre><p>他会显示成<br>This is a normal paragraph:             </p>
+<pre><code>This is <span class="tag">a</span> <span class="tag">code</span> block.
+</code></pre><h2 id="分隔线">分隔线</h2><p>你可以在一行中用三个或以上的<code>*</code>、<code>-</code>、<code>_</code>来建立一个分隔线，行内不能有其他东西。你也可以在符号中间插入空白。下面每种写法都可以建立分隔线：</p>
+<pre><code><span class="keyword">*</span> <span class="keyword">*</span> <span class="keyword">*</span>
+<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+- - - -
+_ _ _____
+</code></pre><h1 id="区段元素（对应行内元素）">区段元素（对应行内元素）</h1><h2 id="强调">强调</h2><p>使用 <code>*</code> 和 <code>_</code> 表示强调。被1个<code>*</code>或<code>_</code> 包围的字词会被转成用 <code>&lt;em&gt;</code> 标签包围，用两个 <code>*</code> 或<code>_</code> 包起来的话，则会被转成 <code>&lt;strong&gt;</code>，例如：</p>
+<pre><code>这是 <span class="keyword">*</span>斜体<span class="keyword">*</span>，这是 <span class="keyword">*</span><span class="keyword">*</span>粗体<span class="keyword">*</span><span class="keyword">*</span>
+这是_斜体_，这是__粗体__
+</code></pre><p>转成：<br>这是 <em>斜体</em>，这是 <strong>粗体</strong><br>这是<em>斜体</em>，这是<strong>粗体</strong></p>
+<h2 id="链接">链接</h2><p>Mark支持两种形式的链接语法：<strong>行内</strong>和<strong>参考</strong>两种形式。<br>不管哪一种，链接文字都用[方括号]来标记。<br>行内形式链接:</p>
+<pre><code>[<span class="link_label">google</span>](<span class="link_url">http://www.google.com/ "go to google"</span>)
+</code></pre><p>转成：<br><a href="http://www.google.com/" title="go to google" target="_blank" rel="external">google</a></p>
+<p>参考形式链接</p>
+<pre><code>[<span class="link_label">google</span>][<span class="link_reference">g-id</span>]
+[<span class="link_reference">g-id</span>]:<span class="link_url">http://www.google.com/   "go to google"</span>
+[<span class="link_label">google1</span>][<span class="link_reference"></span>]
+[<span class="link_reference">google1</span>]:<span class="link_url">http://www.google.com/   "go to google too"</span>
+</code></pre><p>同样转成：<br><a href="http://www.google.com/" title="go to google" target="_blank" rel="external">google</a><br><a href="http://www.google.com/" title="go to google too" target="_blank" rel="external">google1</a></p>
+<h2 id="图片">图片</h2><p>和链接相比多了一个惊叹号,同样有行内和参考两种形式<br>详细描述如下：</p>
+<ul>
+<li>一个惊叹号<code>!</code></li>
+<li>接着一个方括号，里面放上图片的替换文字</li>
+<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上 选择性的 ‘title’ 文字。</li>
+</ul>
+<h2 id="程序代码">程序代码</h2><p>如果要标记一小段行内程序代码，可以用反引号把它包起来（```），例如：</p>
+<pre><code><span class="escape">``</span>There is <span class="literal">a</span> literal backtick(<span class="escape">`)</span> here.<span class="escape">``</span>
+<span class="escape">``</span> <span class="escape">` </span><span class="escape">``</span>
+</code></pre><p>会产生:<br><code>There is a literal backtick(`) here.</code><br><code>` </code></p>
+<h2 id="html标签">html标签</h2><p>不在 Markdown 涵盖范围之内的标签，都可以直接在文档里面用 HTML 撰写。不需要额外标注这是 HTML 或是 Markdown；只要直接加标签就可以了,比如:</p>
+<pre><code>使用 <span class="escape">`&lt;</span>del&gt;文本&lt;/del&gt; <span class="escape">`表</span>示删除线
+使用<span class="escape">`&lt;</span>kbd&gt;Ctrl&lt;/kbd&gt;<span class="escape">`表</span>示一个 Ctrl 键盘按钮。
+使用<span class="escape">`&lt;</span><span class="literal">a</span> href=<span class="string">"grootfish.github.io"</span>&gt;groot&lt;/<span class="literal">a</span>&gt;<span class="escape">`表</span>示一个超链接
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="区块元素（对应块级元素）">区块元素（对应块级元素）</h1><h2 id="标题">标题</h2><p>Markdown 有两种标题的语法</p>
+<ol>
+<li><p>底线形式的标题</p>
+<pre><code><span class="header">T]]>
+    </summary>
+    
+      <category term="学习 | Study" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+    
+  </entry>
+  
+</feed>
