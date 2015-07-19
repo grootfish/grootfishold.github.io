@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://grootfish.github.io/2015/07/19/this/</loc>
+    <lastmod>2015-07-19T14:07:08.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://grootfish.github.io/2015/07/19/hello-world/</loc>
     <lastmod>2015-07-19T14:02:12.000Z</lastmod>
   </url>
@@ -9,11 +14,6 @@
   <url>
     <loc>http://grootfish.github.io/2015/06/14/markdown/</loc>
     <lastmod>2015-07-19T14:02:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://grootfish.github.io/2015/07/19/this/</loc>
-    <lastmod>2015-07-19T14:01:47.000Z</lastmod>
   </url>
   
   <url>

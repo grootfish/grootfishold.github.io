@@ -47,7 +47,7 @@
     <link href="http://grootfish.github.io/2015/07/19/this/"/>
     <id>http://grootfish.github.io/2015/07/19/this/</id>
     <published>2015-07-19T12:15:49.000Z</published>
-    <updated>2015-07-19T14:01:47.000Z</updated>
+    <updated>2015-07-19T14:07:08.000Z</updated>
     <content type="html"><![CDATA[<h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
 <blockquote>
 <p>In JavaScript, as in most object-oriented programming languages, this is a special keyword that is used within methods to refer to the object on which a method is being invoked.</p>
@@ -111,7 +111,7 @@ myobject.foo()
     
     </summary>
     
-      <category term="Javascript" scheme="http://grootfish.github.io/tags/Javascript/"/>
+      <category term="JavaScript" scheme="http://grootfish.github.io/tags/JavaScript/"/>
     
       <category term="学习 | Study" scheme="http://grootfish.github.io/categories/%E5%AD%A6%E4%B9%A0-Study/"/>
     
