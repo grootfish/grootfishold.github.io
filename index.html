@@ -74,7 +74,7 @@ var _hmt = _hmt || [];
     </header>
     <div class="entry">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+  <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -84,7 +84,7 @@ var _hmt = _hmt || [];
 <h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
-      
+
     </div>
     <footer>
       
@@ -115,7 +115,7 @@ var _hmt = _hmt || [];
     </header>
     <div class="entry">
       
-        <h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
+  <h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
 <blockquote>
 <p>In JavaScript, as in most object-oriented programming languages, this is a special keyword that is used within methods to refer to the object on which a method is being invoked.</p>
 </blockquote>
@@ -159,7 +159,7 @@ myobject.foo()
 <h2 id="ES5中新引入了Function-prototype-bind()方法">ES5中新引入了Function.prototype.bind()方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myobject = &#123;</span><br><span class="line">  foo : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">    &#125;.bind(<span class="keyword">this</span>);   </span><br><span class="line">    bar();<span class="comment">//myobject</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">myobject.foo();</span><br></pre></td></tr></table></figure>
 <p>在默认情况下, 使用window.setTimeout()时,this 关键字会指向window (或全局) 对象. 当使用类的方法时,需要 this 引用类的实例,你可能需要显式的把 this 绑定到回调函数以便继续使用实例.</p>
 
-      
+
     </div>
     <footer>
       
@@ -190,7 +190,7 @@ myobject.foo()
     </header>
     <div class="entry">
       
-        <p>这是我在工作中写的代码：</p>
+  <p>这是我在工作中写的代码：</p>
 <pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
         method:<span class="string">'POST'</span>,
@@ -271,7 +271,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 </code></pre><p>理论上，如果ajax异步请求，它的异步回调函数是在单独一个线程中，那么回调函数必然不被其他线程”阻挠“而顺利执行，也就是1秒后，它回调执行弹出‘ajax’，可是实际情况并非如此，回调函数无法执行，因为浏览器再次因为死循环假死。</p>
 <p>既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。</p>
 
-      
+
     </div>
     <footer>
       
@@ -302,7 +302,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     </header>
     <div class="entry">
       
-        <h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
+  <h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
 <ul>
 <li>界定符</li>
 <li>原子<ul>
@@ -454,7 +454,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <li><a href="http://regexper.com/" target="_blank" rel="external">regexper</a></li>
 </ul>
 
-      
+
     </div>
     <footer>
       
@@ -485,7 +485,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     </header>
     <div class="entry">
       
-        <p>前些天刚拿到Mac pro,最近几天一直在瞎折腾。看了很多教程，也下了很多软件（原谅我是屌丝很多高大上的软件我下了破解版，我承诺等我以后变成高帅富我会买正版的）。这边把自己体验学习心得总结一下，高手不要喷我，忽略就好。</p>
+  <p>前些天刚拿到Mac pro,最近几天一直在瞎折腾。看了很多教程，也下了很多软件（原谅我是屌丝很多高大上的软件我下了破解版，我承诺等我以后变成高帅富我会买正版的）。这边把自己体验学习心得总结一下，高手不要喷我，忽略就好。</p>
 <h2 id="Mac_OS_x_界面">Mac OS x 界面</h2><ol>
 <li><p>菜单栏<br>菜单栏在桌面左上端，左上方的 Apple 圖示 「」就像是总指挥站，負責系統的开关、睡眠、重新启动等等。你可透過選單列來執行「文件」、「編輯」等命令來控制各種應用程式。</p>
 </li>
@@ -548,7 +548,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 </li>
 </ul>
 
-      
+
     </div>
     <footer>
       
@@ -579,7 +579,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     </header>
     <div class="entry">
       
-        <h1 id="区块元素（对应块级元素）">区块元素（对应块级元素）</h1><h2 id="标题">标题</h2><p>Markdown 有两种标题的语法</p>
+  <h1 id="区块元素（对应块级元素）">区块元素（对应块级元素）</h1><h2 id="标题">标题</h2><p>Markdown 有两种标题的语法</p>
 <ol>
 <li><p>底线形式的标题</p>
 <pre><code><span class="header">This is an H1
@@ -663,7 +663,7 @@ _ _ _____
 使用<span class="escape">`&lt;</span>kbd&gt;Ctrl&lt;/kbd&gt;<span class="escape">`表</span>示一个 Ctrl 键盘按钮。
 使用<span class="escape">`&lt;</span><span class="literal">a</span> href=<span class="string">"grootfish.github.io"</span>&gt;groot&lt;/<span class="literal">a</span>&gt;<span class="escape">`表</span>示一个超链接
 </code></pre>
-      
+
     </div>
     <footer>
       

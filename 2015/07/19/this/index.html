@@ -73,7 +73,7 @@ var _hmt = _hmt || [];
     </header>
     <div class="entry">
       
-        <h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
+  <h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
 <blockquote>
 <p>In JavaScript, as in most object-oriented programming languages, this is a special keyword that is used within methods to refer to the object on which a method is being invoked.</p>
 </blockquote>
@@ -117,7 +117,7 @@ myobject.foo()
 <h2 id="ES5中新引入了Function-prototype-bind()方法">ES5中新引入了Function.prototype.bind()方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myobject = &#123;</span><br><span class="line">  foo : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">    &#125;.bind(<span class="keyword">this</span>);   </span><br><span class="line">    bar();<span class="comment">//myobject</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">myobject.foo();</span><br></pre></td></tr></table></figure>
 <p>在默认情况下, 使用window.setTimeout()时,this 关键字会指向window (或全局) 对象. 当使用类的方法时,需要 this 引用类的实例,你可能需要显式的把 this 绑定到回调函数以便继续使用实例.</p>
 
-      
+
     </div>
     <footer>
       

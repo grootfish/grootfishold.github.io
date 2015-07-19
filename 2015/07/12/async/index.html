@@ -73,7 +73,7 @@ var _hmt = _hmt || [];
     </header>
     <div class="entry">
       
-        <p>这是我在工作中写的代码：</p>
+  <p>这是我在工作中写的代码：</p>
 <pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
         method:<span class="string">'POST'</span>,
@@ -154,7 +154,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 </code></pre><p>理论上，如果ajax异步请求，它的异步回调函数是在单独一个线程中，那么回调函数必然不被其他线程”阻挠“而顺利执行，也就是1秒后，它回调执行弹出‘ajax’，可是实际情况并非如此，回调函数无法执行，因为浏览器再次因为死循环假死。</p>
 <p>既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。</p>
 
-      
+
     </div>
     <footer>
       
