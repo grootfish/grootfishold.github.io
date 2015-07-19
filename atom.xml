@@ -205,7 +205,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     <link href="http://grootfish.github.io/2015/07/04/RegExp/"/>
     <id>http://grootfish.github.io/2015/07/04/RegExp/</id>
     <published>2015-07-04T06:09:24.000Z</published>
-    <updated>2015-07-19T13:33:51.000Z</updated>
+    <updated>2015-07-19T13:37:16.000Z</updated>
     <content type="html"><![CDATA[<h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
 <ul>
 <li>界定符</li>
@@ -371,7 +371,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <l]]>
     </summary>
     
-      <category term="JavaScript|RegExp" scheme="http://grootfish.github.io/tags/JavaScript-RegExp/"/>
+      <category term="JavaScript | RegExp" scheme="http://grootfish.github.io/tags/JavaScript-RegExp/"/>
     
       <category term="学习 | Study" scheme="http://grootfish.github.io/categories/%E5%AD%A6%E4%B9%A0-Study/"/>
     
