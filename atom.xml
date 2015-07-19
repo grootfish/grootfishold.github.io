@@ -5,7 +5,7 @@
   <subtitle><![CDATA[1000 words a  Day]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://grootfish.github.io//"/>
-  <updated>2015-07-13T12:32:09.000Z</updated>
+  <updated>2015-07-19T13:28:23.000Z</updated>
   <id>http://grootfish.github.io//</id>
   
   <author>
@@ -14,6 +14,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Javascript中的this]]></title>
+    <link href="http://grootfish.github.io/2015/07/19/this/"/>
+    <id>http://grootfish.github.io/2015/07/19/this/</id>
+    <published>2015-07-19T12:15:49.000Z</published>
+    <updated>2015-07-19T13:28:23.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
+<blockquote>
+<p>In JavaScript, as in most object-oriented programming languages, this is a special keyword that is used within methods to refer to the object on which a method is being invoked.</p>
+</blockquote>
+<p>值得注意，该关键字在Javascript中和执行环境，而非声明环境有关。</p>
+<blockquote>
+<p>The this keyword is relative to the execution context, not the declaration context.</p>
+</blockquote>
+<p>javascript 中的关键词 <code>this</code> 代指 执行上下文（Execution Contexts），函数作用域中的this，理解上来说是指调用这个函数的对象。</p>
+<p>准确的说，<code>this</code>的值是执行上下文中的一个属性：</p>
+<pre><code>activeExecutionContext = {
+      <span class="type">VO</span>: <span class="decorator">{...}</span>,
+      this: thisValue
+};
+</code></pre><p><code>this</code>是和上下文中的可执行代码类型紧密相关的。它的值在进入上下文的时候被决定，并且当代码在上下文中运行的时候是不可变的。关于执行上下文的概念在本文不做展开，有兴趣的同学可以戳下面链接<a href="http://weizhifeng.net/javascript-the-core.html#execution-context" target="_blank" rel="external">执行上下文</a></p>
+<h1 id="全局下的This">全局下的This</h1><p>全局作用域下的函数里面的this，显然等于全局对象(在浏览器中即window)</p>
+<pre><code>funciton foo<span class="params">()</span>{
+    console.<span class="built_in">log</span><span class="params">(this === window)</span> <span class="comment">//true</span>
+}
+test<span class="params">()</span>;
+</code></pre><p>严格模式下,全局模式下的函数内部的this为undefined，而不会默认为window</p>
+<h1 id="函数中的This">函数中的This</h1><pre><code>　<span class="keyword">var</span> x = <span class="number">1</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
+    alert(<span class="keyword">this</span>.x);
+}
+test(); <span class="comment">// 1</span>
+</code></pre><p>这是函数的最通常用法，属于全局性调用，因此this就代表全局对象。</p>
+<h1 id="对象中的This">对象中的This</h1><pre><code><span class="keyword">var</span> myobject = {
+    foo : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="built_in">console</span>.dir(<span class="keyword">this</span>) <span class="comment">//myobject</span>
+    }
+}
+myobject.foo()
+</code></pre><p>函数作为某个对象的方法调用，这时this就指这个上级对象。foo里面的this指向调用foo的对象myobject。</p>
+<h1 id="定时器、闭包、回调函数中的This">定时器、闭包、回调函数中的This</h1><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> name</span> = <span class="string">"window"</span>;</span><br><span class="line"><span class="variable"><span class="keyword">var</span> Bob</span> = &#123;</span><br><span class="line">    name: <span class="string">"Bob"</span>,</span><br><span class="line">    showName: function()&#123;</span><br><span class="line">        alert(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable"><span class="keyword">var</span> Tom</span> = &#123;</span><br><span class="line">    name: <span class="string">"Tom"</span>,</span><br><span class="line">    showName: function()&#123;</span><br><span class="line">        <span class="variable"><span class="keyword">var</span> fun</span> = Bob.showName;</span><br><span class="line">        <span class="function"><span class="title">fun</span><span class="params">()</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Tom.showName();　　<span class="comment">//window</span></span><br></pre></td></tr></table></figure>
+<p>我们可以发现，如果在foo函数里声明新的函数（闭包），比如绑定事件，setTimeout里的函数等情况，这里面的this会变为window（严格模式下undefined）。</p>
+<h1 id="构造函数中的this">构造函数中的this</h1><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.x = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A();</span><br><span class="line">alert(a.x); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+<p>new关键字后的构造函数中的this指向用该构造函数构造出来的新对象.</p>
+<h1 id="常用解决办法">常用解决办法</h1><h2 id="变量传递">变量传递</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myobject = &#123;</span><br><span class="line">  foo : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span>   </span><br><span class="line">    <span class="built_in">document</span>.body.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(that)<span class="comment">//myobject</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">myobject.foo()</span><br></pre></td></tr></table></figure>
+<h2 id="call和apply">call和apply</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myobject = &#123;</span><br><span class="line">  foo : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">    &#125;   </span><br><span class="line">    bar.call(myobject)<span class="comment">//myobject</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">myobject.foo()</span><br></pre></td></tr></table></figure>
+<p>当使用 Function.prototype 的 apply 和 call 方法时，this 的值为显式设置为该方法的第一个参数。</p>
+<h2 id="ES5中新引入了Function-prototype-bind()方法">ES5中新引入了Function.prototype.bind()方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myobject = &#123;</span><br><span class="line">  foo : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">    &#125;.bind(<span class="keyword">this</span>);   </span><br><span class="line">    bar();<span class="comment">//myobject</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">myobject.foo();</span><br></pre></td></tr></table></figure>
+<p>在默认情况下, 使用window.setTimeout()时,this 关键字会指向window (或全局) 对象. 当使用类的方法时,需要 this 引用类的实例,你可能需要显式的把 this 绑定到回调函数以便继续使用实例.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
+<blockquote>
+<p>In JavaScript, as in most object-oriente]]>
+    </summary>
+    
+      <category term="学习 | JavaScript" scheme="http://grootfish.github.io/tags/%E5%AD%A6%E4%B9%A0-JavaScript/"/>
+    
+      <category term="Javascript" scheme="http://grootfish.github.io/categories/Javascript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[JavaScript中的异步]]></title>
