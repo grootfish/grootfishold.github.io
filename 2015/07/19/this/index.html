@@ -87,7 +87,7 @@ var _hmt = _hmt || [];
       <span class="type">VO</span>: <span class="decorator">{...}</span>,
       this: thisValue
 };
-</code></pre><p><code>this</code>是和上下文中的可执行代码类型紧密相关的。它的值在进入上下文的时候被决定，并且当代码在上下文中运行的时候是不可变的。关于执行上下文的概念在本文不做展开，有兴趣的同学可以戳下面链接<a href="http://weizhifeng.net/javascript-the-core.html#execution-context" target="_blank" rel="external">执行上下文</a></p>
+</code></pre><p><code>this</code>是和上下文中的可执行代码类型紧密相关的。它的值在进入上下文的时候被决定，并且当代码在上下文中运行的时候是不可变的。关于执行上下文的概念在本文不做展开，有兴趣的同学可以戳下面链接<a href="http://weizhifeng.net/javascript-the-core.html#execution-context" target="_blank" rel="external">执行上下文</a><br><a id="more"></a></p>
 <h1 id="全局下的This">全局下的This</h1><p>全局作用域下的函数里面的this，显然等于全局对象(在浏览器中即window)</p>
 <pre><code>funciton foo<span class="params">()</span>{
     console.<span class="built_in">log</span><span class="params">(this === window)</span> <span class="comment">//true</span>

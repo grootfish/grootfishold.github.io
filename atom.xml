@@ -5,7 +5,7 @@
   <subtitle><![CDATA[1000 words a  Day]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://grootfish.github.io//"/>
-  <updated>2015-07-19T13:32:12.000Z</updated>
+  <updated>2015-07-19T14:02:12.000Z</updated>
   <id>http://grootfish.github.io//</id>
   
   <author>
@@ -19,11 +19,11 @@
     <title><![CDATA[Hello Hexo]]></title>
     <link href="http://grootfish.github.io/2015/07/19/hello-world/"/>
     <id>http://grootfish.github.io/2015/07/19/hello-world/</id>
-    <published>2015-07-19T13:32:12.000Z</published>
-    <updated>2015-07-19T13:32:12.000Z</updated>
+    <published>2015-07-19T14:02:12.000Z</published>
+    <updated>2015-07-19T14:02:12.000Z</updated>
     <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a><br><a id="more"></a></p>
 <h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
 <h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
@@ -32,7 +32,10 @@
 <p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a><br>]]>
+    
     </summary>
     
       <category term="Hexo" scheme="http://grootfish.github.io/tags/Hexo/"/>
@@ -44,7 +47,7 @@
     <link href="http://grootfish.github.io/2015/07/19/this/"/>
     <id>http://grootfish.github.io/2015/07/19/this/</id>
     <published>2015-07-19T12:15:49.000Z</published>
-    <updated>2015-07-19T13:39:18.000Z</updated>
+    <updated>2015-07-19T14:01:47.000Z</updated>
     <content type="html"><![CDATA[<h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
 <blockquote>
 <p>In JavaScript, as in most object-oriented programming languages, this is a special keyword that is used within methods to refer to the object on which a method is being invoked.</p>
@@ -59,7 +62,7 @@
       <span class="type">VO</span>: <span class="decorator">{...}</span>,
       this: thisValue
 };
-</code></pre><p><code>this</code>是和上下文中的可执行代码类型紧密相关的。它的值在进入上下文的时候被决定，并且当代码在上下文中运行的时候是不可变的。关于执行上下文的概念在本文不做展开，有兴趣的同学可以戳下面链接<a href="http://weizhifeng.net/javascript-the-core.html#execution-context" target="_blank" rel="external">执行上下文</a></p>
+</code></pre><p><code>this</code>是和上下文中的可执行代码类型紧密相关的。它的值在进入上下文的时候被决定，并且当代码在上下文中运行的时候是不可变的。关于执行上下文的概念在本文不做展开，有兴趣的同学可以戳下面链接<a href="http://weizhifeng.net/javascript-the-core.html#execution-context" target="_blank" rel="external">执行上下文</a><br><a id="more"></a></p>
 <h1 id="全局下的This">全局下的This</h1><p>全局作用域下的函数里面的this，显然等于全局对象(在浏览器中即window)</p>
 <pre><code>funciton foo<span class="params">()</span>{
     console.<span class="built_in">log</span><span class="params">(this === window)</span> <span class="comment">//true</span>
@@ -92,7 +95,20 @@ myobject.foo()
     <summary type="html">
     <![CDATA[<h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
 <blockquote>
-<p>In JavaScript, as in most object-oriente]]>
+<p>In JavaScript, as in most object-oriented programming languages, this is a special keyword that is used within methods to refer to the object on which a method is being invoked.</p>
+</blockquote>
+<p>值得注意，该关键字在Javascript中和执行环境，而非声明环境有关。</p>
+<blockquote>
+<p>The this keyword is relative to the execution context, not the declaration context.</p>
+</blockquote>
+<p>javascript 中的关键词 <code>this</code> 代指 执行上下文（Execution Contexts），函数作用域中的this，理解上来说是指调用这个函数的对象。</p>
+<p>准确的说，<code>this</code>的值是执行上下文中的一个属性：</p>
+<pre><code>activeExecutionContext = {
+      <span class="type">VO</span>: <span class="decorator">{...}</span>,
+      this: thisValue
+};
+</code></pre><p><code>this</code>是和上下文中的可执行代码类型紧密相关的。它的值在进入上下文的时候被决定，并且当代码在上下文中运行的时候是不可变的。关于执行上下文的概念在本文不做展开，有兴趣的同学可以戳下面链接<a href="http://weizhifeng.net/javascript-the-core.html#execution-context">执行上下文</a><br>]]>
+    
     </summary>
     
       <category term="Javascript" scheme="http://grootfish.github.io/tags/Javascript/"/>
@@ -106,9 +122,8 @@ myobject.foo()
     <link href="http://grootfish.github.io/2015/07/12/async/"/>
     <id>http://grootfish.github.io/2015/07/12/async/</id>
     <published>2015-07-12T09:03:09.000Z</published>
-    <updated>2015-07-19T13:57:16.000Z</updated>
-    <content type="html"><![CDATA[<a id="more"></a>
-<p>这是我在工作中写的代码：</p>
+    <updated>2015-07-19T14:01:18.000Z</updated>
+    <content type="html"><![CDATA[<p>这是我在工作中写的代码：</p>
 <pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
         method:<span class="string">'POST'</span>,
@@ -127,7 +142,7 @@ myobject.foo()
         _this.destroy();_
     }
     <span class="keyword">this</span>.$on(<span class="string">'save'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{alert(<span class="string">'saved'</span>);});
-</code></pre><p> 用的框架比较小众，大家可以忽略，主体部分应该都看得懂。在执行中遇到问题，上面<code>*</code>号包围的代码没有办法触发，在chrome中调试发现<code>save</code>事件没有被定义，我把代码移到ajax回调函数外面，就能找到并触发<code>save</code>方法，那么到底哪里出问题了呢，找了半天才发现原来问题出在上面<code>_</code>包围的代码，在调用<code>save</code>之前整个组件已经被销毁了，在组件上自然就找不到<code>save</code>方法了，那么问题就来了，为什么<code>destroy</code>方法会先执行呢？原来在js中ajax是异步加载的，ajax回调时会等待返回结果而不影响后面代码运行。那么既然踩了坑，就把坑填一填，省的下次在踩。</p>
+</code></pre><p> 用的框架比较小众，大家可以忽略，主体部分应该都看得懂。在执行中遇到问题，上面<code>*</code>号包围的代码没有办法触发，在chrome中调试发现<code>save</code>事件没有被定义，我把代码移到ajax回调函数外面，就能找到并触发<code>save</code>方法，那么到底哪里出问题了呢，找了半天才发现原来问题出在上面<code>_</code>包围的代码，在调用<code>save</code>之前整个组件已经被销毁了，在组件上自然就找不到<code>save</code>方法了，那么问题就来了，为什么<code>destroy</code>方法会先执行呢？原来在js中ajax是异步加载的，ajax回调时会等待返回结果而不影响后面代码运行。那么既然踩了坑，就把坑填一填，省的下次在踩。<br> <a id="more"></a></p>
 <h2 id="JavaScript是单线程的">JavaScript是单线程的</h2><p>什么是单线程？就是说一次只能做一项任务，如果任务多了，就放到一个任务队列里面去，就像排队一样。</p>
 <p><img src="/img/singlethread.jpg" alt="单线程"></p>
 <p>这种单线程的机制，好处是执行环境单一，容易理解，也容易控制；但是缺点也很明显，如果执行一个任务时间过长，排在后面的任务会被阻塞，而且没有足够的时间分配给UI的话，那么还会造成UI卡死的现象，也就是所谓的浏览器假死。</p>
@@ -190,9 +205,27 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <p>既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<a id="more"></a>
-<p>这是我在工作中写的代码：</p>
-<pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()<]]>
+    <![CDATA[<p>这是我在工作中写的代码：</p>
+<pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
+        method:<span class="string">'POST'</span>,
+        data: {},
+        onload: <span class="function"><span class="keyword">function</span><span class="params">(json)</span> </span>{
+            <span class="keyword">if</span>(!!json&amp;&amp;json.code==<span class="number">200</span>){
+                   notify.notify({
+                       type: <span class="string">"success"</span>,
+                       message: json.message || <span class="string">"操作成功！"</span>
+                });
+            *<span class="keyword">this</span>.$emit(<span class="string">'save'</span>);*
+                }   
+            },
+            onerror: <span class="function"><span class="keyword">function</span><span class="params">(json)</span> </span>{
+        });            
+        _this.destroy();_
+    }
+    <span class="keyword">this</span>.$on(<span class="string">'save'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{alert(<span class="string">'saved'</span>);});
+</code></pre><p> 用的框架比较小众，大家可以忽略，主体部分应该都看得懂。在执行中遇到问题，上面<code>*</code>号包围的代码没有办法触发，在chrome中调试发现<code>save</code>事件没有被定义，我把代码移到ajax回调函数外面，就能找到并触发<code>save</code>方法，那么到底哪里出问题了呢，找了半天才发现原来问题出在上面<code>_</code>包围的代码，在调用<code>save</code>之前整个组件已经被销毁了，在组件上自然就找不到<code>save</code>方法了，那么问题就来了，为什么<code>destroy</code>方法会先执行呢？原来在js中ajax是异步加载的，ajax回调时会等待返回结果而不影响后面代码运行。那么既然踩了坑，就把坑填一填，省的下次在踩。<br>]]>
+    
     </summary>
     
       <category term="JavaScript" scheme="http://grootfish.github.io/tags/JavaScript/"/>
@@ -206,7 +239,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     <link href="http://grootfish.github.io/2015/07/04/RegExp/"/>
     <id>http://grootfish.github.io/2015/07/04/RegExp/</id>
     <published>2015-07-04T06:09:24.000Z</published>
-    <updated>2015-07-19T13:37:16.000Z</updated>
+    <updated>2015-07-19T14:01:36.000Z</updated>
     <content type="html"><![CDATA[<h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
 <ul>
 <li>界定符</li>
@@ -220,6 +253,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <li>模式单元</li>
 <li>修正模式</li>
 </ul>
+<a id="more"></a>
 <h3 id="1-_界定符">1. 界定符</h3><p>界定符最简单啦，表示一个正则表达式的开始和结束，例如<code>/[0-9]/</code>,<code>/\d/</code>等等</p>
 <h3 id="2-_原子">2. 原子</h3><p>原子是正则表达式的基本组成元素，可以分为两类：</p>
 <ul>
@@ -369,7 +403,11 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 </ul>
 </li>
 <li>量词</li>
-<l]]>
+<li>边界控制</li>
+<li>模式单元</li>
+<li>修正模式</li>
+</ul>]]>
+    
     </summary>
     
       <category term="JavaScript | RegExp" scheme="http://grootfish.github.io/tags/JavaScript-RegExp/"/>
@@ -383,7 +421,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     <link href="http://grootfish.github.io/2015/06/27/Mac/"/>
     <id>http://grootfish.github.io/2015/06/27/Mac/</id>
     <published>2015-06-27T09:59:55.000Z</published>
-    <updated>2015-07-19T13:32:35.000Z</updated>
+    <updated>2015-07-19T14:01:26.000Z</updated>
     <content type="html"><![CDATA[<p>前些天刚拿到Mac pro,最近几天一直在瞎折腾。看了很多教程，也下了很多软件（原谅我是屌丝很多高大上的软件我下了破解版，我承诺等我以后变成高帅富我会买正版的）。这边把自己体验学习心得总结一下，高手不要喷我，忽略就好。</p>
 <h2 id="Mac_OS_x_界面">Mac OS x 界面</h2><ol>
 <li><p>菜单栏<br>菜单栏在桌面左上端，左上方的 Apple 圖示 「」就像是总指挥站，負責系統的开关、睡眠、重新启动等等。你可透過選單列來執行「文件」、「編輯」等命令來控制各種應用程式。</p>
@@ -393,9 +431,10 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <li><p>状态栏<br>状态栏在左面右上端，和windows右下角状态栏类似，默认显示一些软件运行状态，你可以使用<a href="http://www.macbartender.com/" title="Bartender" target="_blank" rel="external">Bartender</a>软件来管理状态栏</p>
 </li>
 <li><p>Dock<br>位于屏幕底部或一侧的图标栏就是 Dock。它提供了访问随 Mac 提供的许多 app（例如邮件、Safari 和信息）的便捷途径。您也可以将您自己的 app、文稿和文件夹添加到 Dock。<br>Dock 将 app 存放在其左侧。文件夹、文稿及最小化窗口还有废纸篓则存放在 Dock 的右侧。如果您仔细观察，则会看到将这两侧分开的一条垂直分隔线。</p>
-</li>
+<a id="more"></a>
+<h2 id="手势和快捷键">手势和快捷键</h2></li>
 </ol>
-<h2 id="手势和快捷键">手势和快捷键</h2><p>对于手势和快捷键我的建议是<strong>少量即可，多多益善</strong></p>
+<p>对于手势和快捷键我的建议是<strong>少量即可，多多益善</strong></p>
 <p>掌握好多手势和快捷键可以有效的提高工作效率，触控板和快捷键基本让你可以脱离鼠标。多手势我就不说了，苹果的官网和操作系统自带的说明已经非常详尽。我简单介绍几个常用的快捷键。<br><img src="/img/b.jpg" alt="Mac 快捷键"> </p>
 <ul>
 <li><p>Command+Tab                   任意情况下切换应用程序 - 向前循环   </p>
@@ -449,7 +488,15 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 ]]></content>
     <summary type="html">
     <![CDATA[<p>前些天刚拿到Mac pro,最近几天一直在瞎折腾。看了很多教程，也下了很多软件（原谅我是屌丝很多高大上的软件我下了破解版，我承诺等我以后变成高帅富我会买正版的）。这边把自己体验学习心得总结一下，高手不要喷我，忽略就好。</p>
-<h2 id="Mac_OS_x_界面">Ma]]>
+<h2 id="Mac_OS_x_界面">Mac OS x 界面</h2><ol>
+<li><p>菜单栏<br>菜单栏在桌面左上端，左上方的 Apple 圖示 「」就像是总指挥站，負責系統的开关、睡眠、重新启动等等。你可透過選單列來執行「文件」、「編輯」等命令來控制各種應用程式。</p>
+</li>
+<li><p>桌面<br>我觉得和windows没什么区别，可以把任何东西放上面，对我这样有轻微洁癖的就不喜欢把放桌面上，顶多当临时文件夹来用，用完就删。</p>
+</li>
+<li><p>状态栏<br>状态栏在左面右上端，和windows右下角状态栏类似，默认显示一些软件运行状态，你可以使用<a href="http://www.macbartender.com/" title="Bartender">Bartender</a>软件来管理状态栏</p>
+</li>
+<li><p>Dock<br>位于屏幕底部或一侧的图标栏就是 Dock。它提供了访问随 Mac 提供的许多 app（例如邮件、Safari 和信息）的便捷途径。您也可以将您自己的 app、文稿和文件夹添加到 Dock。<br>Dock 将 app 存放在其左侧。文件夹、文稿及最小化窗口还有废纸篓则存放在 Dock 的右侧。如果您仔细观察，则会看到将这两侧分开的一条垂直分隔线。</p>]]>
+    
     </summary>
     
       <category term="Mac" scheme="http://grootfish.github.io/tags/Mac/"/>
@@ -463,7 +510,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     <link href="http://grootfish.github.io/2015/06/14/markdown/"/>
     <id>http://grootfish.github.io/2015/06/14/markdown/</id>
     <published>2015-06-14T01:08:39.000Z</published>
-    <updated>2015-07-19T13:33:02.000Z</updated>
+    <updated>2015-07-19T14:02:04.000Z</updated>
     <content type="html"><![CDATA[<h1 id="区块元素（对应块级元素）">区块元素（对应块级元素）</h1><h2 id="标题">标题</h2><p>Markdown 有两种标题的语法</p>
 <ol>
 <li><p>底线形式的标题</p>
@@ -477,8 +524,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <pre><code><span class="comment"># This is an H1</span>
 <span class="comment">## This is an H2</span>
 <span class="comment">###### This is an H6</span>
-</code></pre></li>
-</ol>
+</code></pre><a id="more"></a>
 <h2 id="列表">列表</h2><p>Markdown支持有序列表和无序列表<br>无序列表使用<code>*</code>、<code>+</code>或是<code>-</code>作为列表标记</p>
 <pre><code><span class="bullet">* </span>Red
 <span class="bullet">* </span>Green
@@ -495,7 +541,9 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <pre><code><span class="bullet">1. </span>Red
 <span class="bullet">2. </span>Green
 <span class="bullet">3. </span>Blue
-</code></pre><h2 id="引用区块（Blockquotes）">引用区块（Blockquotes）</h2><p>Markdown用<code>&gt;</code>表示引用</p>
+</code></pre></li>
+</ol>
+<h2 id="引用区块（Blockquotes）">引用区块（Blockquotes）</h2><p>Markdown用<code>&gt;</code>表示引用</p>
 <pre><code>&gt; <span class="comment">## This is a header</span>
 &gt;
 &gt;&gt; this <span class="keyword">is</span> a blockquote <span class="keyword">with</span> two <span class="property">paragraphs</span>.
@@ -552,7 +600,18 @@ _ _ _____
     <![CDATA[<h1 id="区块元素（对应块级元素）">区块元素（对应块级元素）</h1><h2 id="标题">标题</h2><p>Markdown 有两种标题的语法</p>
 <ol>
 <li><p>底线形式的标题</p>
-<pre><code><span class="header">T]]>
+<pre><code><span class="header">This is an H1
+===========</span>
+<span class="header">This is an H2
+-------------------</span>
+</code></pre><p>任何数量的<code>=</code>和<code>-</code>都可以有效果</p>
+</li>
+<li><p>#开头的标题形式，在行首插入 1 到 6 个 # ，对应到标题 1 到 6 级  </p>
+<pre><code><span class="comment"># This is an H1</span>
+<span class="comment">## This is an H2</span>
+<span class="comment">###### This is an H6</span>
+</code></pre>]]>
+    
     </summary>
     
       <category term="Markdown" scheme="http://grootfish.github.io/tags/Markdown/"/>

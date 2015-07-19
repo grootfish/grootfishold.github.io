@@ -73,8 +73,7 @@ var _hmt = _hmt || [];
     </header>
     <div class="entry">
       
-  <a id="more"></a>
-<p>这是我在工作中写的代码：</p>
+  <p>这是我在工作中写的代码：</p>
 <pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
         method:<span class="string">'POST'</span>,
@@ -93,7 +92,7 @@ var _hmt = _hmt || [];
         _this.destroy();_
     }
     <span class="keyword">this</span>.$on(<span class="string">'save'</span>,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{alert(<span class="string">'saved'</span>);});
-</code></pre><p> 用的框架比较小众，大家可以忽略，主体部分应该都看得懂。在执行中遇到问题，上面<code>*</code>号包围的代码没有办法触发，在chrome中调试发现<code>save</code>事件没有被定义，我把代码移到ajax回调函数外面，就能找到并触发<code>save</code>方法，那么到底哪里出问题了呢，找了半天才发现原来问题出在上面<code>_</code>包围的代码，在调用<code>save</code>之前整个组件已经被销毁了，在组件上自然就找不到<code>save</code>方法了，那么问题就来了，为什么<code>destroy</code>方法会先执行呢？原来在js中ajax是异步加载的，ajax回调时会等待返回结果而不影响后面代码运行。那么既然踩了坑，就把坑填一填，省的下次在踩。</p>
+</code></pre><p> 用的框架比较小众，大家可以忽略，主体部分应该都看得懂。在执行中遇到问题，上面<code>*</code>号包围的代码没有办法触发，在chrome中调试发现<code>save</code>事件没有被定义，我把代码移到ajax回调函数外面，就能找到并触发<code>save</code>方法，那么到底哪里出问题了呢，找了半天才发现原来问题出在上面<code>_</code>包围的代码，在调用<code>save</code>之前整个组件已经被销毁了，在组件上自然就找不到<code>save</code>方法了，那么问题就来了，为什么<code>destroy</code>方法会先执行呢？原来在js中ajax是异步加载的，ajax回调时会等待返回结果而不影响后面代码运行。那么既然踩了坑，就把坑填一填，省的下次在踩。<br> <a id="more"></a></p>
 <h2 id="JavaScript是单线程的">JavaScript是单线程的</h2><p>什么是单线程？就是说一次只能做一项任务，如果任务多了，就放到一个任务队列里面去，就像排队一样。</p>
 <p><img src="/img/singlethread.jpg" alt="单线程"></p>
 <p>这种单线程的机制，好处是执行环境单一，容易理解，也容易控制；但是缺点也很明显，如果执行一个任务时间过长，排在后面的任务会被阻塞，而且没有足够的时间分配给UI的话，那么还会造成UI卡死的现象，也就是所谓的浏览器假死。</p>
