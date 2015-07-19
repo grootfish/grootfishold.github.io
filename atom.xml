@@ -5,7 +5,7 @@
   <subtitle><![CDATA[1000 words a  Day]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://grootfish.github.io//"/>
-  <updated>2015-07-19T13:28:23.000Z</updated>
+  <updated>2015-07-19T13:32:12.000Z</updated>
   <id>http://grootfish.github.io//</id>
   
   <author>
@@ -16,11 +16,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Hello Hexo]]></title>
+    <link href="http://grootfish.github.io/2015/07/19/hello-world/"/>
+    <id>http://grootfish.github.io/2015/07/19/hello-world/</id>
+    <published>2015-07-19T13:32:12.000Z</published>
+    <updated>2015-07-19T13:32:12.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
+    </summary>
+    
+      <category term="Hexo" scheme="http://grootfish.github.io/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Javascript中的this]]></title>
     <link href="http://grootfish.github.io/2015/07/19/this/"/>
     <id>http://grootfish.github.io/2015/07/19/this/</id>
     <published>2015-07-19T12:15:49.000Z</published>
-    <updated>2015-07-19T13:28:23.000Z</updated>
+    <updated>2015-07-19T13:34:00.000Z</updated>
     <content type="html"><![CDATA[<h1 id="What_is_This?">What is This?</h1><p>一般而言，在Javascript中，this指向函数执行时的当前对象。</p>
 <blockquote>
 <p>In JavaScript, as in most object-oriented programming languages, this is a special keyword that is used within methods to refer to the object on which a method is being invoked.</p>
@@ -71,9 +95,9 @@ myobject.foo()
 <p>In JavaScript, as in most object-oriente]]>
     </summary>
     
-      <category term="学习 | JavaScript" scheme="http://grootfish.github.io/tags/%E5%AD%A6%E4%B9%A0-JavaScript/"/>
+      <category term="JavaScript" scheme="http://grootfish.github.io/tags/JavaScript/"/>
     
-      <category term="Javascript" scheme="http://grootfish.github.io/categories/Javascript/"/>
+      <category term="学习 | JavaScript" scheme="http://grootfish.github.io/categories/%E5%AD%A6%E4%B9%A0-JavaScript/"/>
     
   </entry>
   
@@ -82,7 +106,7 @@ myobject.foo()
     <link href="http://grootfish.github.io/2015/07/12/async/"/>
     <id>http://grootfish.github.io/2015/07/12/async/</id>
     <published>2015-07-12T09:03:09.000Z</published>
-    <updated>2015-07-13T12:32:09.000Z</updated>
+    <updated>2015-07-19T13:34:09.000Z</updated>
     <content type="html"><![CDATA[<p>这是我在工作中写的代码：</p>
 <pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
@@ -170,7 +194,9 @@ while <span class="params">(<span class="literal">true</span>)</span> {
    ]]>
     </summary>
     
-      <category term="工作 | Work" scheme="http://grootfish.github.io/tags/%E5%B7%A5%E4%BD%9C-Work/"/>
+      <category term="JavaScript" scheme="http://grootfish.github.io/tags/JavaScript/"/>
+    
+      <category term="工作 | Work" scheme="http://grootfish.github.io/categories/%E5%B7%A5%E4%BD%9C-Work/"/>
     
   </entry>
   
@@ -179,7 +205,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     <link href="http://grootfish.github.io/2015/07/04/RegExp/"/>
     <id>http://grootfish.github.io/2015/07/04/RegExp/</id>
     <published>2015-07-04T06:09:24.000Z</published>
-    <updated>2015-07-04T14:12:00.000Z</updated>
+    <updated>2015-07-19T13:33:51.000Z</updated>
     <content type="html"><![CDATA[<h2 id="正则表达式基本语法">正则表达式基本语法</h2><p>正则表达式一般可以由以下元素组成</p>
 <ul>
 <li>界定符</li>
@@ -345,7 +371,9 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <l]]>
     </summary>
     
-      <category term="学习 | Study" scheme="http://grootfish.github.io/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+      <category term="JavaScript|RegExp" scheme="http://grootfish.github.io/tags/JavaScript-RegExp/"/>
+    
+      <category term="学习 | Study" scheme="http://grootfish.github.io/categories/%E5%AD%A6%E4%B9%A0-Study/"/>
     
   </entry>
   
@@ -354,7 +382,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     <link href="http://grootfish.github.io/2015/06/27/Mac/"/>
     <id>http://grootfish.github.io/2015/06/27/Mac/</id>
     <published>2015-06-27T09:59:55.000Z</published>
-    <updated>2015-07-12T00:35:34.000Z</updated>
+    <updated>2015-07-19T13:32:35.000Z</updated>
     <content type="html"><![CDATA[<p>前些天刚拿到Mac pro,最近几天一直在瞎折腾。看了很多教程，也下了很多软件（原谅我是屌丝很多高大上的软件我下了破解版，我承诺等我以后变成高帅富我会买正版的）。这边把自己体验学习心得总结一下，高手不要喷我，忽略就好。</p>
 <h2 id="Mac_OS_x_界面">Mac OS x 界面</h2><ol>
 <li><p>菜单栏<br>菜单栏在桌面左上端，左上方的 Apple 圖示 「」就像是总指挥站，負責系統的开关、睡眠、重新启动等等。你可透過選單列來執行「文件」、「編輯」等命令來控制各種應用程式。</p>
@@ -423,29 +451,9 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <h2 id="Mac_OS_x_界面">Ma]]>
     </summary>
     
-      <category term="学习 | Study" scheme="http://grootfish.github.io/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+      <category term="Mac" scheme="http://grootfish.github.io/tags/Mac/"/>
     
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hello Hexo]]></title>
-    <link href="http://grootfish.github.io/2015/06/21/hello-world/"/>
-    <id>http://grootfish.github.io/2015/06/21/hello-world/</id>
-    <published>2015-06-21T13:07:45.000Z</published>
-    <updated>2015-06-15T02:07:13.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
-    </summary>
+      <category term="学习 | Study" scheme="http://grootfish.github.io/categories/%E5%AD%A6%E4%B9%A0-Study/"/>
     
   </entry>
   
@@ -454,7 +462,7 @@ while <span class="params">(<span class="literal">true</span>)</span> {
     <link href="http://grootfish.github.io/2015/06/14/markdown/"/>
     <id>http://grootfish.github.io/2015/06/14/markdown/</id>
     <published>2015-06-14T01:08:39.000Z</published>
-    <updated>2015-06-27T13:23:39.000Z</updated>
+    <updated>2015-07-19T13:33:02.000Z</updated>
     <content type="html"><![CDATA[<h1 id="区块元素（对应块级元素）">区块元素（对应块级元素）</h1><h2 id="标题">标题</h2><p>Markdown 有两种标题的语法</p>
 <ol>
 <li><p>底线形式的标题</p>
@@ -546,7 +554,9 @@ _ _ _____
 <pre><code><span class="header">T]]>
     </summary>
     
-      <category term="学习 | Study" scheme="http://grootfish.github.io/tags/%E5%AD%A6%E4%B9%A0-Study/"/>
+      <category term="Markdown" scheme="http://grootfish.github.io/tags/Markdown/"/>
+    
+      <category term="学习 | Study" scheme="http://grootfish.github.io/categories/%E5%AD%A6%E4%B9%A0-Study/"/>
     
   </entry>
   
