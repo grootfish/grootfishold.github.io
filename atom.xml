@@ -106,8 +106,9 @@ myobject.foo()
     <link href="http://grootfish.github.io/2015/07/12/async/"/>
     <id>http://grootfish.github.io/2015/07/12/async/</id>
     <published>2015-07-12T09:03:09.000Z</published>
-    <updated>2015-07-19T13:34:09.000Z</updated>
-    <content type="html"><![CDATA[<p>这是我在工作中写的代码：</p>
+    <updated>2015-07-19T13:57:16.000Z</updated>
+    <content type="html"><![CDATA[<a id="more"></a>
+<p>这是我在工作中写的代码：</p>
 <pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
     <span class="keyword">this</span>.$request(<span class="keyword">this</span>.url, {
         method:<span class="string">'POST'</span>,
@@ -189,9 +190,9 @@ while <span class="params">(<span class="literal">true</span>)</span> {
 <p>既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>这是我在工作中写的代码：</p>
-<pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-   ]]>
+    <![CDATA[<a id="more"></a>
+<p>这是我在工作中写的代码：</p>
+<pre><code>doSave:<span class="function"><span class="keyword">function</span><span class="params">()<]]>
     </summary>
     
       <category term="JavaScript" scheme="http://grootfish.github.io/tags/JavaScript/"/>
